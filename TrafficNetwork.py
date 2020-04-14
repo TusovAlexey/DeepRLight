@@ -1,5 +1,8 @@
-
+import os
 import traci
+from Utils.AgentParams import AgentParams
+from Agent import Double_DQN_Agent
+import numpy as np
 
 class Lane:
     def __init__(self, lid):
@@ -13,9 +16,14 @@ class Lane:
         string = "  - Lane id: " + self.lid + ", length: " + str(self.length) + ", Edge: " + self.eid + "\n"
         return string
 
+    def get_last_step_mean_speed(self):
+        return traci.lane.getLastStepMeanSpeed(self.lid)
+
+    def get_lane_cars_waiting_time(self):
+        return max([float(0)] + [traci.vehicle.getAccumulatedWaitingTime(car_id) for car_id in traci.lane.getLastStepVehicleIDs(self.lid)])
+
     def get_edge_id(self):
         return self.eid
-
 
 class Edge:
     def __init__(self, eid):
@@ -26,13 +34,22 @@ class Edge:
         string = "  - Edge id: " + self.eid + ", number of lanes: " + str(self.num_lanes) + "\n"
         return string
 
-
 class Junction:
-    def __init__(self, jid):
+    def __init__(self, jid, args):
         self.jid = jid
         self.lanes = [Lane(lid) for lid in set(traci.trafficlight.getControlledLanes(jid))]
         self.edges = [Edge(eid) for eid in set([lane.get_edge_id() for lane in self.lanes])]
         self.phases = traci.trafficlight.getCompleteRedYellowGreenDefinition(jid)[0].getPhases()
+        self.state = None
+        self.config_file = os.path.dirname(args.cfg) + "/parameters/" + self.jid + ".ini"
+        self.agentParams = AgentParams(self.config_file)
+        self.input_size = len(self.lanes) + len(self.phases)
+        self.num_actions = len(self.phases)
+        self.agent = Double_DQN_Agent(self.input_size, self.num_actions, self.agentParams)
+        self.steps_counter = 0
+        self.reward = None
+        self.last_state = None
+        self.last_action = None
 
     def __repr__(self):
         string = "- Junction id: " + self.jid + "\n"
@@ -40,30 +57,58 @@ class Junction:
         string += str(self.edges)
         return string
 
-    def get_lanes(self):
-        return self.lanes
+    def save_results(self, prev_state, prev_action, new_state, reward):
+        if self.last_action is not None:
+            self.agent.add_to_memory(prev_state, prev_action, new_state, reward)
 
-    def get_edges(self):
-        return self.edges
+    def set_phase(self, phase):
+        self.last_action = phase
+        traci.trafficlight.setPhase(self.jid, phase)
 
-    def get_phases(self):
-        return self.phases
+    def generate_state(self):
+        phase_state = np.eye(len(self.phases))[traci.trafficlight.getPhase(self.jid)]
+        lanes_mean_speed_state = np.array([lane.get_last_step_mean_speed() for lane in self.lanes])
+        return np.concatenate((lanes_mean_speed_state, phase_state))
+
+    def calculate_reward(self):
+        # max waiting time
+        return -1*max([lane.get_lane_cars_waiting_time() for lane in self.lanes])
+
+    def step(self):
+        # Do agent step once for sim_step simulator steps
+        self.steps_counter += 1
+        if self.steps_counter < self.agentParams.sim_step:
+            return
+        self.steps_counter = 0
+
+        # Calculate reward for last previous action
+        reward = self.calculate_reward()
+        new_state = self.generate_state()
+        self.save_results(self.last_state, self.last_action, new_state, reward)
+
+        self.last_state = new_state
+        action = self.agent.select_action(self.last_state)
+        self.set_phase(action)
+
+    def learn(self):
+        # Learn after number of sim_step done
+        if self.steps_counter == 0:
+            self.agent.optimize_model()
 
 
 class TrafficNetwork:
-    def __init__(self):
-        self.junctions = [Junction(jid) for jid in list(traci.trafficlight.getIDList())]
+    def __init__(self, args):
+        self.junctions = [Junction(jid, args) for jid in list(traci.trafficlight.getIDList())]
+
+    def step(self):
+        for junction in self.junctions:
+            junction.step()
+
+    def learn(self):
+        for junction in self.junctions:
+            junction.learn()
 
     def __repr__(self):
         string = "Traffic Network: \n"
         string += str(self.junctions)
         return string
-
-
-
-
-
-
-
-
-

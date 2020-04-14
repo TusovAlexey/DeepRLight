@@ -224,7 +224,7 @@ class TrafficGenerator:
                 vehicles_per_hour = self.probability_function(vtype, route, start_hour)
                 #vehicles_per_hour = 5
 
-                element = ET.Element('flow', id=vtype+"_"+route.replace(' ', '_')+"_"+str(start_hour), route=route.replace(' ', '_'), begin=str(one_hour*start_hour), end=str(one_hour*start_hour+one_hour), vehsPerHour=str(vehicles_per_hour))
+                element = ET.Element('flow',type=vtype, id=vtype+"_"+route.replace(' ', '_')+"_"+str(start_hour), route=route.replace(' ', '_'), begin=str(one_hour*start_hour), end=str(one_hour*start_hour+one_hour), vehsPerHour=str(vehicles_per_hour))
                 flows.append(element)
         return flows
 

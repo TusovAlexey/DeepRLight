@@ -30,7 +30,6 @@ class DQN(nn.Module):
         output = self.out(x.view(x.size(0), -1))
         return output
 
-
 class Agent():
     @abstractmethod
     def add_to_memory(self, state, action, next_state, reward):
@@ -55,7 +54,6 @@ class Agent():
     @abstractmethod
     def save_ckpt(self):
         pass
-
 
 class DQN_Agent(Agent):
     '''
@@ -198,7 +196,6 @@ class DQN_Agent(Agent):
         '''
         ckpt_path = os.path.join(ckpt_folder, 'policy_net_state_dict.pth')
         torch.save(self.policy_net.state_dict(), ckpt_path)
-
 
 class Fixed_Q_Targets_Agent(DQN_Agent):
     '''
