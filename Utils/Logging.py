@@ -3,6 +3,7 @@ import logging
 import time
 import io
 import csv
+import os
 
 class CsvFormatter(logging.Formatter):
     def __init__(self):
@@ -18,11 +19,13 @@ class CsvFormatter(logging.Formatter):
         return data.strip()
 
 class LoggingCsv:
-    def __init__(self, file, name):
+    def __init__(self, path, name):
+        os.makedirs(path + "/csv", exist_ok=True)
+
         self.logger = logging.getLogger(name + "_csv")
         self.logger.setLevel(logging.DEBUG)
         file_handler = logging.FileHandler(
-            file + "/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + "_csv.csv")
+            path + "/csv/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + ".csv")
         file_handler.setLevel(logging.DEBUG)
         file_format = CsvFormatter()
         file_handler.setFormatter(file_format)
@@ -34,7 +37,6 @@ class LoggingCsv:
             msg += str(arg) + ","
         self.logger.info(msg[:-1])
 
-
 class Logging:
     def __init__(self, loglevel=logging.DEBUG, logfile=None, stdout=False, name='root'):
         assert logfile is not None or stdout is True
@@ -43,8 +45,9 @@ class Logging:
         self.logger.setLevel(loglevel)
 
         if logfile is not None:
+            os.makedirs(logfile + "/prints", exist_ok=True)
             file_format = logging.Formatter('%(message)s')
-            file_handler = logging.FileHandler(logfile + "/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + ".log")
+            file_handler = logging.FileHandler(logfile + "/prints/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + ".log")
             file_handler.setLevel(loglevel)
             file_handler.setFormatter(file_format)
             self.logger.addHandler(file_handler)

@@ -4,7 +4,15 @@ from Utils.AgentParams import AgentParams
 from Agent import Double_DQN_Agent
 import numpy as np
 from Utils.Logging import Logging, LoggingCsv
+from Utils.PlotAnimation import PlotAnimation, animation_process
 import time
+import matplotlib;
+
+matplotlib.use("TkAgg")
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+from multiprocessing import Process, Queue
 
 class Lane:
     def __init__(self, lid):
@@ -18,17 +26,28 @@ class Lane:
         string = "  - Lane id: " + self.lid + ", length: " + str(self.length) + ", Edge: " + self.eid + "\n"
         return string
 
-    def get_last_step_mean_speed(self):
+    def mean_speed(self):
+        """ Returns the mean speed of vehicles that were on this lane within the last simulation step [m/s] """
         return traci.lane.getLastStepMeanSpeed(self.lid)
 
-    def get_lane_cars_waiting_time(self):
+    def waiting_time(self):
+        """Returns the waiting time for all vehicles on the lane [s]"""
         return max([float(0)] + [traci.vehicle.getAccumulatedWaitingTime(car_id) for car_id in traci.lane.getLastStepVehicleIDs(self.lid)])
+
+    def num_cars(self):
+        """The number of vehicles on this lane within the last time step."""
+        return traci.lane.getLastStepVehicleNumber(self.lid)
+
+    def occupancy(self):
+        """Returns the total lengths of vehicles on this lane during the last simulation step divided by the length of this lane"""
+        return traci.lane.getLastStepOccupancy(self.lid)
+
+    def halting_number(self):
+        """Returns the total number of halting vehicles for the last time step on the given lane. A speed of less than 0.1 m/s is considered a halt."""
+        return traci.lane.getLastStepHaltingNumber(self.lid)
 
     def get_edge_id(self):
         return self.eid
-
-    def get_cars_amount(self):
-        return len(traci.lane.getLastStepVehicleIDs(self.lid))
 
 class Edge:
     def __init__(self, eid):
@@ -69,33 +88,19 @@ class Junction:
         if self.last_action is not None:
             self.agent.add_to_memory(prev_state, prev_action, new_state, reward)
 
-    def get_cars_amount(self):
-        return sum([lane.get_cars_amount() for lane in self.lanes])
-
-    def get_mean_speed(self):
-        return np.mean([lane.get_last_step_mean_speed() for lane in self.lanes])
-
-    def get_max_waiting_time(self):
-        return max([lane.get_lane_cars_waiting_time() for lane in self.lanes])
-
-    def dump_information(self):
-        sim_time = time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime()))
-        cars = self.get_cars_amount()
-        mean_speed = self.get_mean_speed()
-        max_wt = self.get_max_waiting_time()
-        phase = self.phases[traci.trafficlight.getPhase(self.jid)].state
-        self.logger.info("Time: " + str(sim_time) +
-                         ", cars: " + str(cars) +
-                         ", Mean speed: " + str(mean_speed) +
-                         ", Max waiting time: " + str(max_wt) +
-                         ", Phase: " + str(phase))
-        self.csv_logger.log(sim_time, cars, mean_speed, max_wt, phase)
-        #self.csv_logger.log(str(sim_time) + "," +
-        #                    str(cars) + "," +
-        #                    str(mean_speed) + "," +
-        #                    str(max_wt) + "," +
-        #                    str(phase))
-
+    def dump(self):
+        result = dict()
+        result['sim_time'] = time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime()))
+        result['time'] = int(traci.simulation.getTime())
+        result['cars'] = sum([lane.num_cars() for lane in self.lanes])
+        mean = [lane.mean_speed() for lane in self.lanes]
+        result['mean_speed'] = np.mean(mean)
+        result['max_wt'] = max([lane.waiting_time() for lane in self.lanes])
+        result['halting_number'] = sum([lane.halting_number() for lane in self.lanes])
+        result['occupancy'] = sum([lane.occupancy() for lane in self.lanes])
+        result['phase'] = self.phases[traci.trafficlight.getPhase(self.jid)].state
+        self.csv_logger.log(result['sim_time'], result['phase'], result['cars'], result['mean_speed'], result['max_wt'], result['halting_number'], result['occupancy'], result['time'])
+        return self.jid, result
 
     def set_phase(self, phase):
         self.last_action = phase
@@ -103,15 +108,12 @@ class Junction:
 
     def generate_state(self):
         phase_state = np.eye(len(self.phases))[traci.trafficlight.getPhase(self.jid)]
-        lanes_mean_speed_state = np.array([lane.get_last_step_mean_speed() for lane in self.lanes])
+        lanes_mean_speed_state = np.array([lane.mean_speed() for lane in self.lanes])
         return np.concatenate((lanes_mean_speed_state, phase_state))
 
     def calculate_reward(self):
         # max waiting time
-        return -1*self.get_max_waiting_time()
-
-    def dump(self):
-        self.dump_information()
+        return -1*max([lane.waiting_time() for lane in self.lanes])
 
     def step(self):
         # Do agent step once for sim_step simulator steps
@@ -138,6 +140,18 @@ class Junction:
 class TrafficNetwork:
     def __init__(self, args):
         self.junctions = [Junction(jid, args) for jid in list(traci.trafficlight.getIDList())]
+        self.dump_data = dict()
+        self.communicator = Queue()
+        self.seconds_update = 600
+        self.seconds_counter = 0
+        for junction in self.junctions:
+            jid, results = junction.dump()
+            self.dump_data[jid] = dict((k, results[k]) for k in ('time', 'cars', 'max_wt', 'mean_speed'))
+
+        self.plot_process = Process(target=animation_process, args=(self.dump_data, self.communicator)).start()
+        self.dump_list = dict()
+        for junction in self.junctions:
+            self.dump_list[junction.jid] = list()
 
     def step(self):
         for junction in self.junctions:
@@ -149,7 +163,10 @@ class TrafficNetwork:
 
     def dump(self):
         for junction in self.junctions:
-            junction.dump()
+            jid, results = junction.dump()
+            self.dump_data[jid] = dict((k, results[k]) for k in ('time', 'cars', 'max_wt', 'mean_speed'))
+        self.communicator.put(self.dump_data)
+
 
     def __repr__(self):
         string = "Traffic Network: \n"
