@@ -3,6 +3,8 @@ import traci
 from Utils.AgentParams import AgentParams
 from Agent import Double_DQN_Agent
 import numpy as np
+from Utils.Logging import Logging, LoggingCsv
+import time
 
 class Lane:
     def __init__(self, lid):
@@ -24,6 +26,9 @@ class Lane:
 
     def get_edge_id(self):
         return self.eid
+
+    def get_cars_amount(self):
+        return len(traci.lane.getLastStepVehicleIDs(self.lid))
 
 class Edge:
     def __init__(self, eid):
@@ -50,6 +55,9 @@ class Junction:
         self.reward = None
         self.last_state = None
         self.last_action = None
+        self.log_file = os.path.dirname(args.cfg) + "/logs/junctions/" + self.jid
+        self.logger = Logging(logfile=self.log_file, name="Junction " + self.jid, stdout=True)
+        self.csv_logger = LoggingCsv(self.log_file, self.jid)
 
     def __repr__(self):
         string = "- Junction id: " + self.jid + "\n"
@@ -60,6 +68,34 @@ class Junction:
     def save_results(self, prev_state, prev_action, new_state, reward):
         if self.last_action is not None:
             self.agent.add_to_memory(prev_state, prev_action, new_state, reward)
+
+    def get_cars_amount(self):
+        return sum([lane.get_cars_amount() for lane in self.lanes])
+
+    def get_mean_speed(self):
+        return np.mean([lane.get_last_step_mean_speed() for lane in self.lanes])
+
+    def get_max_waiting_time(self):
+        return max([lane.get_lane_cars_waiting_time() for lane in self.lanes])
+
+    def dump_information(self):
+        sim_time = time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime()))
+        cars = self.get_cars_amount()
+        mean_speed = self.get_mean_speed()
+        max_wt = self.get_max_waiting_time()
+        phase = self.phases[traci.trafficlight.getPhase(self.jid)].state
+        self.logger.info("Time: " + str(sim_time) +
+                         ", cars: " + str(cars) +
+                         ", Mean speed: " + str(mean_speed) +
+                         ", Max waiting time: " + str(max_wt) +
+                         ", Phase: " + str(phase))
+        self.csv_logger.log(sim_time, cars, mean_speed, max_wt, phase)
+        #self.csv_logger.log(str(sim_time) + "," +
+        #                    str(cars) + "," +
+        #                    str(mean_speed) + "," +
+        #                    str(max_wt) + "," +
+        #                    str(phase))
+
 
     def set_phase(self, phase):
         self.last_action = phase
@@ -72,7 +108,10 @@ class Junction:
 
     def calculate_reward(self):
         # max waiting time
-        return -1*max([lane.get_lane_cars_waiting_time() for lane in self.lanes])
+        return -1*self.get_max_waiting_time()
+
+    def dump(self):
+        self.dump_information()
 
     def step(self):
         # Do agent step once for sim_step simulator steps
@@ -107,6 +146,10 @@ class TrafficNetwork:
     def learn(self):
         for junction in self.junctions:
             junction.learn()
+
+    def dump(self):
+        for junction in self.junctions:
+            junction.dump()
 
     def __repr__(self):
         string = "Traffic Network: \n"

@@ -38,6 +38,7 @@ class Simulator:
         """
         traci.start(self.sumo_cmd, label='DeepRLight')
         for _ in range(random.randint(5, self.heatup)):
+            self.traffic_network.dump()
             traci.simulationStep()
 
     def close(self):
@@ -45,6 +46,7 @@ class Simulator:
 
     def step(self):
         self.traffic_network.step()
+        self.traffic_network.dump()
         traci.simulationStep()
 
     def learn(self):
