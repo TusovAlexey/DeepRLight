@@ -21,6 +21,7 @@ class Lane:
         self.shape = traci.lane.getShape(lid)
         self.eid = traci.lane.getEdgeID(lid)
         self.width = traci.lane.getWidth(lid)
+        self.cars = list()
 
     def __repr__(self):
         string = "  - Lane id: " + self.lid + ", length: " + str(self.length) + ", Edge: " + self.eid + "\n"
@@ -45,6 +46,13 @@ class Lane:
     def halting_number(self):
         """Returns the total number of halting vehicles for the last time step on the given lane. A speed of less than 0.1 m/s is considered a halt."""
         return traci.lane.getLastStepHaltingNumber(self.lid)
+
+    def departed_number(self):
+        """Returns a list of ids of vehicles which departed (were inserted into the road network) in this time step."""
+        current_cars = traci.lane.getLastStepVehicleIDs(self.lid)
+        new_cars = [car for car in current_cars if car not in self.cars]
+        self.cars = current_cars
+        return len(new_cars)
 
     def get_edge_id(self):
         return self.eid
@@ -93,13 +101,14 @@ class Junction:
         result['sim_time'] = time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime()))
         result['time'] = int(traci.simulation.getTime())
         result['cars'] = sum([lane.num_cars() for lane in self.lanes])
+        result['departed'] = sum([lane.departed_number() for lane in self.lanes])
         mean = [lane.mean_speed() for lane in self.lanes]
         result['mean_speed'] = np.mean(mean)
         result['max_wt'] = max([lane.waiting_time() for lane in self.lanes])
         result['halting_number'] = sum([lane.halting_number() for lane in self.lanes])
         result['occupancy'] = sum([lane.occupancy() for lane in self.lanes])
         result['phase'] = self.phases[traci.trafficlight.getPhase(self.jid)].state
-        self.csv_logger.log(result['sim_time'], result['phase'], result['cars'], result['mean_speed'], result['max_wt'], result['halting_number'], result['occupancy'], result['time'])
+        self.csv_logger.log(result['sim_time'], result['phase'], result['cars'], result['mean_speed'], result['max_wt'], result['halting_number'], result['occupancy'], result['time'], result['departed'])
         return self.jid, result
 
     def set_phase(self, phase):
@@ -139,15 +148,19 @@ class Junction:
 
 class TrafficNetwork:
     def __init__(self, args):
+        self.args = args
         self.junctions = [Junction(jid, args) for jid in list(traci.trafficlight.getIDList())]
         self.dump_data = dict()
-        self.communicator = Queue()
         self.seconds_update = 600
         self.seconds_counter = 0
+        if args.animation:
+            self.create_plot_animation()
+
+    def create_plot_animation(self):
+        self.communicator = Queue()
         for junction in self.junctions:
             jid, results = junction.dump()
             self.dump_data[jid] = dict((k, results[k]) for k in ('time', 'cars', 'max_wt', 'mean_speed'))
-
         self.plot_process = Process(target=animation_process, args=(self.dump_data, self.communicator)).start()
         self.dump_list = dict()
         for junction in self.junctions:
@@ -165,7 +178,8 @@ class TrafficNetwork:
         for junction in self.junctions:
             jid, results = junction.dump()
             self.dump_data[jid] = dict((k, results[k]) for k in ('time', 'cars', 'max_wt', 'mean_speed'))
-        self.communicator.put(self.dump_data)
+        if self.args.animation:
+            self.communicator.put(self.dump_data)
 
 
     def __repr__(self):

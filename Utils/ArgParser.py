@@ -14,4 +14,5 @@ def process_arguments():
                         help='Number of episodes for simulation, default: agent\'s default value')
     parser.add_argument("-s", "--steps", type=int, default=100000, dest='max_steps',
                         help='Number of steps')
+    parser.add_argument("-a", "--animation", type=bool, default=False, dest='animation')
     return parser.parse_args()
