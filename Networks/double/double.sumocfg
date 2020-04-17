@@ -1,7 +1,7 @@
 <configuration>
     <input>
        <net-file value="double.net.xml"/>
-       <route-files value="flows/generated/double_gen.rou.xml"/>
+       <route-files value="flows/generated/double.rou.xml"/>
     </input>
 	<time-to-teleport value="-1"/>
 	<time>
@@ -14,5 +14,17 @@
         <game value="false"/>
         <start value="false"/>
     </gui_only>
+    <output>
+        <summary-output value="double.out.xml"/>
+    </output>
+    <processing>
+	<ignore-route-errors value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>

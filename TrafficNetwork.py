@@ -108,7 +108,8 @@ class Junction:
         result['halting_number'] = sum([lane.halting_number() for lane in self.lanes])
         result['occupancy'] = sum([lane.occupancy() for lane in self.lanes])
         result['phase'] = self.phases[traci.trafficlight.getPhase(self.jid)].state
-        self.csv_logger.log(result['sim_time'], result['phase'], result['cars'], result['mean_speed'], result['max_wt'], result['halting_number'], result['occupancy'], result['time'], result['departed'])
+        result['reward'] = self.calculate_reward()
+        self.csv_logger.log(result['sim_time'], result['phase'], result['reward'], result['cars'], result['mean_speed'], result['max_wt'], result['halting_number'], result['occupancy'], result['time'], result['departed'])
         return self.jid, result
 
     def set_phase(self, phase):
