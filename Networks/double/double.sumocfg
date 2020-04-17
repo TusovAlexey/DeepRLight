@@ -1,0 +1,18 @@
+<configuration>
+    <input>
+       <net-file value="double.net.xml"/>
+       <route-files value="flows/generated/double_gen.rou.xml"/>
+    </input>
+	<time-to-teleport value="-1"/>
+	<time>
+        <begin value="0"/>
+        <end value="86400"/>
+        <step-length value="1"/>
+    </time>
+    <gui_only>
+        <gui-settings-file value="../gui_settings.xml"/>
+        <game value="false"/>
+        <start value="false"/>
+    </gui_only>
+
+</configuration>

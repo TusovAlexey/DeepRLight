@@ -29,7 +29,7 @@ class Simulator:
         if self.args.gui == False:
            self.sumo_cmd = [checkBinary('sumo'), '-c', self.args.cfg, '--no-warnings']
         else:
-           self.sumo_cmd = [checkBinary('sumo-gui'), '-c', self.args.cfg, '--start', '--quit-on-end']
+           self.sumo_cmd = [checkBinary('sumo-gui'), '-c', self.args.cfg, '--start', '--quit-on-end', '--gui-settings-file', './Networks/gui_settings.xml']
 
     def reset(self):
         """

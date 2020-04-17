@@ -1,303 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <routes>
    <vType color="255,255,255" id="car" vClass="passenger"/>
-   <route edges="EC CN" id="EC_CN"/>
-   <route edges="EC CW" id="EC_CW"/>
-   <route edges="EC CS" id="EC_CS"/>
-   <route edges="NC CW" id="NC_CW"/>
-   <route edges="NC CS" id="NC_CS"/>
-   <route edges="NC CE" id="NC_CE"/>
-   <route edges="SC CE" id="SC_CE"/>
-   <route edges="SC CN" id="SC_CN"/>
-   <route edges="SC CW" id="SC_CW"/>
-   <route edges="WC CS" id="WC_CS"/>
-   <route edges="WC CE" id="WC_CE"/>
-   <route edges="WC CN" id="WC_CN"/>
-   <flow begin="0" end="7200" id="car_EC_CN_0" route="EC_CN" type="car" probability="0.02"/>
-   <flow begin="0" end="7200" id="car_EC_CW_0" route="EC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_EC_CS_0" route="EC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_NC_CW_0" route="NC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_NC_CS_0" route="NC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_NC_CE_0" route="NC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_SC_CE_0" route="SC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_SC_CN_0" route="SC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_SC_CW_0" route="SC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_WC_CS_0" route="WC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_WC_CE_0" route="WC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="0" end="7200" id="car_WC_CN_0" route="WC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_EC_CN_1" route="EC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_EC_CW_1" route="EC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_EC_CS_1" route="EC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_NC_CW_1" route="NC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_NC_CS_1" route="NC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_NC_CE_1" route="NC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_SC_CE_1" route="SC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_SC_CN_1" route="SC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_SC_CW_1" route="SC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_WC_CS_1" route="WC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_WC_CE_1" route="WC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="7200" end="14400" id="car_WC_CN_1" route="WC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_EC_CN_2" route="EC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_EC_CW_2" route="EC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_EC_CS_2" route="EC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_NC_CW_2" route="NC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_NC_CS_2" route="NC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_NC_CE_2" route="NC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_SC_CE_2" route="SC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_SC_CN_2" route="SC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_SC_CW_2" route="SC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_WC_CS_2" route="WC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_WC_CE_2" route="WC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="14400" end="21600" id="car_WC_CN_2" route="WC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_EC_CN_3" route="EC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_EC_CW_3" route="EC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_EC_CS_3" route="EC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_NC_CW_3" route="NC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_NC_CS_3" route="NC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_NC_CE_3" route="NC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_SC_CE_3" route="SC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_SC_CN_3" route="SC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_SC_CW_3" route="SC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_WC_CS_3" route="WC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_WC_CE_3" route="WC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="21600" end="28800" id="car_WC_CN_3" route="WC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_EC_CN_4" route="EC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_EC_CW_4" route="EC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_EC_CS_4" route="EC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_NC_CW_4" route="NC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_NC_CS_4" route="NC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_NC_CE_4" route="NC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_SC_CE_4" route="SC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_SC_CN_4" route="SC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_SC_CW_4" route="SC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_WC_CS_4" route="WC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_WC_CE_4" route="WC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="28800" end="36000" id="car_WC_CN_4" route="WC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_EC_CN_5" route="EC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_EC_CW_5" route="EC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_EC_CS_5" route="EC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_NC_CW_5" route="NC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_NC_CS_5" route="NC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_NC_CE_5" route="NC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_SC_CE_5" route="SC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_SC_CN_5" route="SC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_SC_CW_5" route="SC_CW" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_WC_CS_5" route="WC_CS" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_WC_CE_5" route="WC_CE" type="car" vehsPerHour="1"/>
-   <flow begin="36000" end="43200" id="car_WC_CN_5" route="WC_CN" type="car" vehsPerHour="1"/>
-   <flow begin="43200" end="50400" id="car_EC_CN_6" route="EC_CN" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_EC_CW_6" route="EC_CW" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_EC_CS_6" route="EC_CS" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_NC_CW_6" route="NC_CW" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_NC_CS_6" route="NC_CS" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_NC_CE_6" route="NC_CE" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_SC_CE_6" route="SC_CE" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_SC_CN_6" route="SC_CN" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_SC_CW_6" route="SC_CW" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_WC_CS_6" route="WC_CS" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_WC_CE_6" route="WC_CE" type="car" vehsPerHour="4"/>
-   <flow begin="43200" end="50400" id="car_WC_CN_6" route="WC_CN" type="car" vehsPerHour="4"/>
-   <flow begin="50400" end="57600" id="car_EC_CN_7" route="EC_CN" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_EC_CW_7" route="EC_CW" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_EC_CS_7" route="EC_CS" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_NC_CW_7" route="NC_CW" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_NC_CS_7" route="NC_CS" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_NC_CE_7" route="NC_CE" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_SC_CE_7" route="SC_CE" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_SC_CN_7" route="SC_CN" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_SC_CW_7" route="SC_CW" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_WC_CS_7" route="WC_CS" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_WC_CE_7" route="WC_CE" type="car" vehsPerHour="15"/>
-   <flow begin="50400" end="57600" id="car_WC_CN_7" route="WC_CN" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_EC_CN_8" route="EC_CN" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_EC_CW_8" route="EC_CW" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_EC_CS_8" route="EC_CS" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_NC_CW_8" route="NC_CW" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_NC_CS_8" route="NC_CS" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_NC_CE_8" route="NC_CE" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_SC_CE_8" route="SC_CE" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_SC_CN_8" route="SC_CN" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_SC_CW_8" route="SC_CW" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_WC_CS_8" route="WC_CS" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_WC_CE_8" route="WC_CE" type="car" vehsPerHour="15"/>
-   <flow begin="57600" end="64800" id="car_WC_CN_8" route="WC_CN" type="car" vehsPerHour="15"/>
-   <flow begin="64800" end="72000" id="car_EC_CN_9" route="EC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_EC_CW_9" route="EC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_EC_CS_9" route="EC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_NC_CW_9" route="NC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_NC_CS_9" route="NC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_NC_CE_9" route="NC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_SC_CE_9" route="SC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_SC_CN_9" route="SC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_SC_CW_9" route="SC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_WC_CS_9" route="WC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_WC_CE_9" route="WC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="64800" end="72000" id="car_WC_CN_9" route="WC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_EC_CN_10" route="EC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_EC_CW_10" route="EC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_EC_CS_10" route="EC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_NC_CW_10" route="NC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_NC_CS_10" route="NC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_NC_CE_10" route="NC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_SC_CE_10" route="SC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_SC_CN_10" route="SC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_SC_CW_10" route="SC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_WC_CS_10" route="WC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_WC_CE_10" route="WC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="72000" end="79200" id="car_WC_CN_10" route="WC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_EC_CN_11" route="EC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_EC_CW_11" route="EC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_EC_CS_11" route="EC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_NC_CW_11" route="NC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_NC_CS_11" route="NC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_NC_CE_11" route="NC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_SC_CE_11" route="SC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_SC_CN_11" route="SC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_SC_CW_11" route="SC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_WC_CS_11" route="WC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_WC_CE_11" route="WC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="79200" end="86400" id="car_WC_CN_11" route="WC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="86400" end="93600" id="car_EC_CN_12" route="EC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_EC_CW_12" route="EC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_EC_CS_12" route="EC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_NC_CW_12" route="NC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_NC_CS_12" route="NC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_NC_CE_12" route="NC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_SC_CE_12" route="SC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_SC_CN_12" route="SC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_SC_CW_12" route="SC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_WC_CS_12" route="WC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_WC_CE_12" route="WC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="86400" end="93600" id="car_WC_CN_12" route="WC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_EC_CN_13" route="EC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_EC_CW_13" route="EC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_EC_CS_13" route="EC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_NC_CW_13" route="NC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_NC_CS_13" route="NC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_NC_CE_13" route="NC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_SC_CE_13" route="SC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_SC_CN_13" route="SC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_SC_CW_13" route="SC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_WC_CS_13" route="WC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_WC_CE_13" route="WC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="93600" end="100800" id="car_WC_CN_13" route="WC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_EC_CN_14" route="EC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_EC_CW_14" route="EC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_EC_CS_14" route="EC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_NC_CW_14" route="NC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_NC_CS_14" route="NC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_NC_CE_14" route="NC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_SC_CE_14" route="SC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_SC_CN_14" route="SC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_SC_CW_14" route="SC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_WC_CS_14" route="WC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_WC_CE_14" route="WC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="100800" end="108000" id="car_WC_CN_14" route="WC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_EC_CN_15" route="EC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_EC_CW_15" route="EC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_EC_CS_15" route="EC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_NC_CW_15" route="NC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_NC_CS_15" route="NC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_NC_CE_15" route="NC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_SC_CE_15" route="SC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_SC_CN_15" route="SC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_SC_CW_15" route="SC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_WC_CS_15" route="WC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_WC_CE_15" route="WC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="108000" end="115200" id="car_WC_CN_15" route="WC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_EC_CN_16" route="EC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_EC_CW_16" route="EC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_EC_CS_16" route="EC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_NC_CW_16" route="NC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_NC_CS_16" route="NC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_NC_CE_16" route="NC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_SC_CE_16" route="SC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_SC_CN_16" route="SC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_SC_CW_16" route="SC_CW" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_WC_CS_16" route="WC_CS" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_WC_CE_16" route="WC_CE" type="car" vehsPerHour="9"/>
-   <flow begin="115200" end="122400" id="car_WC_CN_16" route="WC_CN" type="car" vehsPerHour="9"/>
-   <flow begin="122400" end="129600" id="car_EC_CN_17" route="EC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_EC_CW_17" route="EC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_EC_CS_17" route="EC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_NC_CW_17" route="NC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_NC_CS_17" route="NC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_NC_CE_17" route="NC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_SC_CE_17" route="SC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_SC_CN_17" route="SC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_SC_CW_17" route="SC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_WC_CS_17" route="WC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_WC_CE_17" route="WC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="122400" end="129600" id="car_WC_CN_17" route="WC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_EC_CN_18" route="EC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_EC_CW_18" route="EC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_EC_CS_18" route="EC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_NC_CW_18" route="NC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_NC_CS_18" route="NC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_NC_CE_18" route="NC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_SC_CE_18" route="SC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_SC_CN_18" route="SC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_SC_CW_18" route="SC_CW" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_WC_CS_18" route="WC_CS" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_WC_CE_18" route="WC_CE" type="car" vehsPerHour="7"/>
-   <flow begin="129600" end="136800" id="car_WC_CN_18" route="WC_CN" type="car" vehsPerHour="7"/>
-   <flow begin="136800" end="144000" id="car_EC_CN_19" route="EC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_EC_CW_19" route="EC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_EC_CS_19" route="EC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_NC_CW_19" route="NC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_NC_CS_19" route="NC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_NC_CE_19" route="NC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_SC_CE_19" route="SC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_SC_CN_19" route="SC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_SC_CW_19" route="SC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_WC_CS_19" route="WC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_WC_CE_19" route="WC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="136800" end="144000" id="car_WC_CN_19" route="WC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_EC_CN_20" route="EC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_EC_CW_20" route="EC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_EC_CS_20" route="EC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_NC_CW_20" route="NC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_NC_CS_20" route="NC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_NC_CE_20" route="NC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_SC_CE_20" route="SC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_SC_CN_20" route="SC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_SC_CW_20" route="SC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_WC_CS_20" route="WC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_WC_CE_20" route="WC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="144000" end="151200" id="car_WC_CN_20" route="WC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_EC_CN_21" route="EC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_EC_CW_21" route="EC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_EC_CS_21" route="EC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_NC_CW_21" route="NC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_NC_CS_21" route="NC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_NC_CE_21" route="NC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_SC_CE_21" route="SC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_SC_CN_21" route="SC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_SC_CW_21" route="SC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_WC_CS_21" route="WC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_WC_CE_21" route="WC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="151200" end="158400" id="car_WC_CN_21" route="WC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_EC_CN_22" route="EC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_EC_CW_22" route="EC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_EC_CS_22" route="EC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_NC_CW_22" route="NC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_NC_CS_22" route="NC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_NC_CE_22" route="NC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_SC_CE_22" route="SC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_SC_CN_22" route="SC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_SC_CW_22" route="SC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_WC_CS_22" route="WC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_WC_CE_22" route="WC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="158400" end="165600" id="car_WC_CN_22" route="WC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_EC_CN_23" route="EC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_EC_CW_23" route="EC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_EC_CS_23" route="EC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_NC_CW_23" route="NC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_NC_CS_23" route="NC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_NC_CE_23" route="NC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_SC_CE_23" route="SC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_SC_CN_23" route="SC_CN" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_SC_CW_23" route="SC_CW" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_WC_CS_23" route="WC_CS" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_WC_CE_23" route="WC_CE" type="car" vehsPerHour="2"/>
-   <flow begin="165600" end="172800" id="car_WC_CN_23" route="WC_CN" type="car" vehsPerHour="2"/>
+   <flow begin="0" end="3600" from="EC" id="car_EC_CN_0" number="5" to="CN" type="car"/>
+   <flow begin="0" end="3600" from="EC" id="car_EC_CS_0" number="5" to="CS" type="car"/>
+   <flow begin="0" end="3600" from="EC" id="car_EC_CW_0" number="5" to="CW" type="car"/>
+   <flow begin="0" end="3600" from="NC" id="car_NC_CE_0" number="5" to="CE" type="car"/>
+   <flow begin="0" end="3600" from="NC" id="car_NC_CS_0" number="5" to="CS" type="car"/>
+   <flow begin="0" end="3600" from="NC" id="car_NC_CW_0" number="5" to="CW" type="car"/>
+   <flow begin="0" end="3600" from="SC" id="car_SC_CE_0" number="5" to="CE" type="car"/>
+   <flow begin="0" end="3600" from="SC" id="car_SC_CN_0" number="5" to="CN" type="car"/>
+   <flow begin="0" end="3600" from="SC" id="car_SC_CW_0" number="5" to="CW" type="car"/>
+   <flow begin="0" end="3600" from="WC" id="car_WC_CE_0" number="5" to="CE" type="car"/>
+   <flow begin="0" end="3600" from="WC" id="car_WC_CN_0" number="5" to="CN" type="car"/>
+   <flow begin="0" end="3600" from="WC" id="car_WC_CS_0" number="5" to="CS" type="car"/>
+   <flow begin="3600" end="7200" from="EC" id="car_EC_CN_1" number="5" to="CN" type="car"/>
+   <flow begin="3600" end="7200" from="EC" id="car_EC_CS_1" number="5" to="CS" type="car"/>
+   <flow begin="3600" end="7200" from="EC" id="car_EC_CW_1" number="5" to="CW" type="car"/>
+   <flow begin="3600" end="7200" from="NC" id="car_NC_CE_1" number="5" to="CE" type="car"/>
+   <flow begin="3600" end="7200" from="NC" id="car_NC_CS_1" number="5" to="CS" type="car"/>
+   <flow begin="3600" end="7200" from="NC" id="car_NC_CW_1" number="5" to="CW" type="car"/>
+   <flow begin="3600" end="7200" from="SC" id="car_SC_CE_1" number="5" to="CE" type="car"/>
+   <flow begin="3600" end="7200" from="SC" id="car_SC_CN_1" number="5" to="CN" type="car"/>
+   <flow begin="3600" end="7200" from="SC" id="car_SC_CW_1" number="5" to="CW" type="car"/>
+   <flow begin="3600" end="7200" from="WC" id="car_WC_CE_1" number="5" to="CE" type="car"/>
+   <flow begin="3600" end="7200" from="WC" id="car_WC_CN_1" number="5" to="CN" type="car"/>
+   <flow begin="3600" end="7200" from="WC" id="car_WC_CS_1" number="5" to="CS" type="car"/>
+   <flow begin="7200" end="10800" from="EC" id="car_EC_CN_2" number="5" to="CN" type="car"/>
+   <flow begin="7200" end="10800" from="EC" id="car_EC_CS_2" number="5" to="CS" type="car"/>
+   <flow begin="7200" end="10800" from="EC" id="car_EC_CW_2" number="5" to="CW" type="car"/>
+   <flow begin="7200" end="10800" from="NC" id="car_NC_CE_2" number="5" to="CE" type="car"/>
+   <flow begin="7200" end="10800" from="NC" id="car_NC_CS_2" number="5" to="CS" type="car"/>
+   <flow begin="7200" end="10800" from="NC" id="car_NC_CW_2" number="5" to="CW" type="car"/>
+   <flow begin="7200" end="10800" from="SC" id="car_SC_CE_2" number="5" to="CE" type="car"/>
+   <flow begin="7200" end="10800" from="SC" id="car_SC_CN_2" number="5" to="CN" type="car"/>
+   <flow begin="7200" end="10800" from="SC" id="car_SC_CW_2" number="5" to="CW" type="car"/>
+   <flow begin="7200" end="10800" from="WC" id="car_WC_CE_2" number="5" to="CE" type="car"/>
+   <flow begin="7200" end="10800" from="WC" id="car_WC_CN_2" number="5" to="CN" type="car"/>
+   <flow begin="7200" end="10800" from="WC" id="car_WC_CS_2" number="5" to="CS" type="car"/>
+   <flow begin="10800" end="14400" from="EC" id="car_EC_CN_3" number="5" to="CN" type="car"/>
+   <flow begin="10800" end="14400" from="EC" id="car_EC_CS_3" number="5" to="CS" type="car"/>
+   <flow begin="10800" end="14400" from="EC" id="car_EC_CW_3" number="5" to="CW" type="car"/>
+   <flow begin="10800" end="14400" from="NC" id="car_NC_CE_3" number="5" to="CE" type="car"/>
+   <flow begin="10800" end="14400" from="NC" id="car_NC_CS_3" number="5" to="CS" type="car"/>
+   <flow begin="10800" end="14400" from="NC" id="car_NC_CW_3" number="5" to="CW" type="car"/>
+   <flow begin="10800" end="14400" from="SC" id="car_SC_CE_3" number="5" to="CE" type="car"/>
+   <flow begin="10800" end="14400" from="SC" id="car_SC_CN_3" number="5" to="CN" type="car"/>
+   <flow begin="10800" end="14400" from="SC" id="car_SC_CW_3" number="5" to="CW" type="car"/>
+   <flow begin="10800" end="14400" from="WC" id="car_WC_CE_3" number="5" to="CE" type="car"/>
+   <flow begin="10800" end="14400" from="WC" id="car_WC_CN_3" number="5" to="CN" type="car"/>
+   <flow begin="10800" end="14400" from="WC" id="car_WC_CS_3" number="5" to="CS" type="car"/>
+   <flow begin="14400" end="18000" from="EC" id="car_EC_CN_4" number="5" to="CN" type="car"/>
+   <flow begin="14400" end="18000" from="EC" id="car_EC_CS_4" number="5" to="CS" type="car"/>
+   <flow begin="14400" end="18000" from="EC" id="car_EC_CW_4" number="5" to="CW" type="car"/>
+   <flow begin="14400" end="18000" from="NC" id="car_NC_CE_4" number="5" to="CE" type="car"/>
+   <flow begin="14400" end="18000" from="NC" id="car_NC_CS_4" number="5" to="CS" type="car"/>
+   <flow begin="14400" end="18000" from="NC" id="car_NC_CW_4" number="5" to="CW" type="car"/>
+   <flow begin="14400" end="18000" from="SC" id="car_SC_CE_4" number="5" to="CE" type="car"/>
+   <flow begin="14400" end="18000" from="SC" id="car_SC_CN_4" number="5" to="CN" type="car"/>
+   <flow begin="14400" end="18000" from="SC" id="car_SC_CW_4" number="5" to="CW" type="car"/>
+   <flow begin="14400" end="18000" from="WC" id="car_WC_CE_4" number="5" to="CE" type="car"/>
+   <flow begin="14400" end="18000" from="WC" id="car_WC_CN_4" number="5" to="CN" type="car"/>
+   <flow begin="14400" end="18000" from="WC" id="car_WC_CS_4" number="5" to="CS" type="car"/>
+   <flow begin="18000" end="21600" from="EC" id="car_EC_CN_5" number="5" to="CN" type="car"/>
+   <flow begin="18000" end="21600" from="EC" id="car_EC_CS_5" number="5" to="CS" type="car"/>
+   <flow begin="18000" end="21600" from="EC" id="car_EC_CW_5" number="5" to="CW" type="car"/>
+   <flow begin="18000" end="21600" from="NC" id="car_NC_CE_5" number="5" to="CE" type="car"/>
+   <flow begin="18000" end="21600" from="NC" id="car_NC_CS_5" number="5" to="CS" type="car"/>
+   <flow begin="18000" end="21600" from="NC" id="car_NC_CW_5" number="5" to="CW" type="car"/>
+   <flow begin="18000" end="21600" from="SC" id="car_SC_CE_5" number="5" to="CE" type="car"/>
+   <flow begin="18000" end="21600" from="SC" id="car_SC_CN_5" number="5" to="CN" type="car"/>
+   <flow begin="18000" end="21600" from="SC" id="car_SC_CW_5" number="5" to="CW" type="car"/>
+   <flow begin="18000" end="21600" from="WC" id="car_WC_CE_5" number="5" to="CE" type="car"/>
+   <flow begin="18000" end="21600" from="WC" id="car_WC_CN_5" number="5" to="CN" type="car"/>
+   <flow begin="18000" end="21600" from="WC" id="car_WC_CS_5" number="5" to="CS" type="car"/>
+   <flow begin="21600" end="25200" from="EC" id="car_EC_CN_6" number="20" to="CN" type="car"/>
+   <flow begin="21600" end="25200" from="EC" id="car_EC_CS_6" number="20" to="CS" type="car"/>
+   <flow begin="21600" end="25200" from="EC" id="car_EC_CW_6" number="20" to="CW" type="car"/>
+   <flow begin="21600" end="25200" from="NC" id="car_NC_CE_6" number="20" to="CE" type="car"/>
+   <flow begin="21600" end="25200" from="NC" id="car_NC_CS_6" number="20" to="CS" type="car"/>
+   <flow begin="21600" end="25200" from="NC" id="car_NC_CW_6" number="20" to="CW" type="car"/>
+   <flow begin="21600" end="25200" from="SC" id="car_SC_CE_6" number="20" to="CE" type="car"/>
+   <flow begin="21600" end="25200" from="SC" id="car_SC_CN_6" number="20" to="CN" type="car"/>
+   <flow begin="21600" end="25200" from="SC" id="car_SC_CW_6" number="20" to="CW" type="car"/>
+   <flow begin="21600" end="25200" from="WC" id="car_WC_CE_6" number="20" to="CE" type="car"/>
+   <flow begin="21600" end="25200" from="WC" id="car_WC_CN_6" number="20" to="CN" type="car"/>
+   <flow begin="21600" end="25200" from="WC" id="car_WC_CS_6" number="20" to="CS" type="car"/>
+   <flow begin="25200" end="28800" from="EC" id="car_EC_CN_7" number="75" to="CN" type="car"/>
+   <flow begin="25200" end="28800" from="EC" id="car_EC_CS_7" number="75" to="CS" type="car"/>
+   <flow begin="25200" end="28800" from="EC" id="car_EC_CW_7" number="75" to="CW" type="car"/>
+   <flow begin="25200" end="28800" from="NC" id="car_NC_CE_7" number="75" to="CE" type="car"/>
+   <flow begin="25200" end="28800" from="NC" id="car_NC_CS_7" number="75" to="CS" type="car"/>
+   <flow begin="25200" end="28800" from="NC" id="car_NC_CW_7" number="75" to="CW" type="car"/>
+   <flow begin="25200" end="28800" from="SC" id="car_SC_CE_7" number="75" to="CE" type="car"/>
+   <flow begin="25200" end="28800" from="SC" id="car_SC_CN_7" number="75" to="CN" type="car"/>
+   <flow begin="25200" end="28800" from="SC" id="car_SC_CW_7" number="75" to="CW" type="car"/>
+   <flow begin="25200" end="28800" from="WC" id="car_WC_CE_7" number="75" to="CE" type="car"/>
+   <flow begin="25200" end="28800" from="WC" id="car_WC_CN_7" number="75" to="CN" type="car"/>
+   <flow begin="25200" end="28800" from="WC" id="car_WC_CS_7" number="75" to="CS" type="car"/>
+   <flow begin="28800" end="32400" from="EC" id="car_EC_CN_8" number="75" to="CN" type="car"/>
+   <flow begin="28800" end="32400" from="EC" id="car_EC_CS_8" number="75" to="CS" type="car"/>
+   <flow begin="28800" end="32400" from="EC" id="car_EC_CW_8" number="75" to="CW" type="car"/>
+   <flow begin="28800" end="32400" from="NC" id="car_NC_CE_8" number="75" to="CE" type="car"/>
+   <flow begin="28800" end="32400" from="NC" id="car_NC_CS_8" number="75" to="CS" type="car"/>
+   <flow begin="28800" end="32400" from="NC" id="car_NC_CW_8" number="75" to="CW" type="car"/>
+   <flow begin="28800" end="32400" from="SC" id="car_SC_CE_8" number="75" to="CE" type="car"/>
+   <flow begin="28800" end="32400" from="SC" id="car_SC_CN_8" number="75" to="CN" type="car"/>
+   <flow begin="28800" end="32400" from="SC" id="car_SC_CW_8" number="75" to="CW" type="car"/>
+   <flow begin="28800" end="32400" from="WC" id="car_WC_CE_8" number="75" to="CE" type="car"/>
+   <flow begin="28800" end="32400" from="WC" id="car_WC_CN_8" number="75" to="CN" type="car"/>
+   <flow begin="28800" end="32400" from="WC" id="car_WC_CS_8" number="75" to="CS" type="car"/>
+   <flow begin="32400" end="36000" from="EC" id="car_EC_CN_9" number="35" to="CN" type="car"/>
+   <flow begin="32400" end="36000" from="EC" id="car_EC_CS_9" number="35" to="CS" type="car"/>
+   <flow begin="32400" end="36000" from="EC" id="car_EC_CW_9" number="35" to="CW" type="car"/>
+   <flow begin="32400" end="36000" from="NC" id="car_NC_CE_9" number="35" to="CE" type="car"/>
+   <flow begin="32400" end="36000" from="NC" id="car_NC_CS_9" number="35" to="CS" type="car"/>
+   <flow begin="32400" end="36000" from="NC" id="car_NC_CW_9" number="35" to="CW" type="car"/>
+   <flow begin="32400" end="36000" from="SC" id="car_SC_CE_9" number="35" to="CE" type="car"/>
+   <flow begin="32400" end="36000" from="SC" id="car_SC_CN_9" number="35" to="CN" type="car"/>
+   <flow begin="32400" end="36000" from="SC" id="car_SC_CW_9" number="35" to="CW" type="car"/>
+   <flow begin="32400" end="36000" from="WC" id="car_WC_CE_9" number="35" to="CE" type="car"/>
+   <flow begin="32400" end="36000" from="WC" id="car_WC_CN_9" number="35" to="CN" type="car"/>
+   <flow begin="32400" end="36000" from="WC" id="car_WC_CS_9" number="35" to="CS" type="car"/>
+   <flow begin="36000" end="39600" from="EC" id="car_EC_CN_10" number="35" to="CN" type="car"/>
+   <flow begin="36000" end="39600" from="EC" id="car_EC_CS_10" number="35" to="CS" type="car"/>
+   <flow begin="36000" end="39600" from="EC" id="car_EC_CW_10" number="35" to="CW" type="car"/>
+   <flow begin="36000" end="39600" from="NC" id="car_NC_CE_10" number="35" to="CE" type="car"/>
+   <flow begin="36000" end="39600" from="NC" id="car_NC_CS_10" number="35" to="CS" type="car"/>
+   <flow begin="36000" end="39600" from="NC" id="car_NC_CW_10" number="35" to="CW" type="car"/>
+   <flow begin="36000" end="39600" from="SC" id="car_SC_CE_10" number="35" to="CE" type="car"/>
+   <flow begin="36000" end="39600" from="SC" id="car_SC_CN_10" number="35" to="CN" type="car"/>
+   <flow begin="36000" end="39600" from="SC" id="car_SC_CW_10" number="35" to="CW" type="car"/>
+   <flow begin="36000" end="39600" from="WC" id="car_WC_CE_10" number="35" to="CE" type="car"/>
+   <flow begin="36000" end="39600" from="WC" id="car_WC_CN_10" number="35" to="CN" type="car"/>
+   <flow begin="36000" end="39600" from="WC" id="car_WC_CS_10" number="35" to="CS" type="car"/>
+   <flow begin="39600" end="43200" from="EC" id="car_EC_CN_11" number="35" to="CN" type="car"/>
+   <flow begin="39600" end="43200" from="EC" id="car_EC_CS_11" number="35" to="CS" type="car"/>
+   <flow begin="39600" end="43200" from="EC" id="car_EC_CW_11" number="35" to="CW" type="car"/>
+   <flow begin="39600" end="43200" from="NC" id="car_NC_CE_11" number="35" to="CE" type="car"/>
+   <flow begin="39600" end="43200" from="NC" id="car_NC_CS_11" number="35" to="CS" type="car"/>
+   <flow begin="39600" end="43200" from="NC" id="car_NC_CW_11" number="35" to="CW" type="car"/>
+   <flow begin="39600" end="43200" from="SC" id="car_SC_CE_11" number="35" to="CE" type="car"/>
+   <flow begin="39600" end="43200" from="SC" id="car_SC_CN_11" number="35" to="CN" type="car"/>
+   <flow begin="39600" end="43200" from="SC" id="car_SC_CW_11" number="35" to="CW" type="car"/>
+   <flow begin="39600" end="43200" from="WC" id="car_WC_CE_11" number="35" to="CE" type="car"/>
+   <flow begin="39600" end="43200" from="WC" id="car_WC_CN_11" number="35" to="CN" type="car"/>
+   <flow begin="39600" end="43200" from="WC" id="car_WC_CS_11" number="35" to="CS" type="car"/>
+   <flow begin="43200" end="46800" from="EC" id="car_EC_CN_12" number="45" to="CN" type="car"/>
+   <flow begin="43200" end="46800" from="EC" id="car_EC_CS_12" number="45" to="CS" type="car"/>
+   <flow begin="43200" end="46800" from="EC" id="car_EC_CW_12" number="45" to="CW" type="car"/>
+   <flow begin="43200" end="46800" from="NC" id="car_NC_CE_12" number="45" to="CE" type="car"/>
+   <flow begin="43200" end="46800" from="NC" id="car_NC_CS_12" number="45" to="CS" type="car"/>
+   <flow begin="43200" end="46800" from="NC" id="car_NC_CW_12" number="45" to="CW" type="car"/>
+   <flow begin="43200" end="46800" from="SC" id="car_SC_CE_12" number="45" to="CE" type="car"/>
+   <flow begin="43200" end="46800" from="SC" id="car_SC_CN_12" number="45" to="CN" type="car"/>
+   <flow begin="43200" end="46800" from="SC" id="car_SC_CW_12" number="45" to="CW" type="car"/>
+   <flow begin="43200" end="46800" from="WC" id="car_WC_CE_12" number="45" to="CE" type="car"/>
+   <flow begin="43200" end="46800" from="WC" id="car_WC_CN_12" number="45" to="CN" type="car"/>
+   <flow begin="43200" end="46800" from="WC" id="car_WC_CS_12" number="45" to="CS" type="car"/>
+   <flow begin="46800" end="50400" from="EC" id="car_EC_CN_13" number="45" to="CN" type="car"/>
+   <flow begin="46800" end="50400" from="EC" id="car_EC_CS_13" number="45" to="CS" type="car"/>
+   <flow begin="46800" end="50400" from="EC" id="car_EC_CW_13" number="45" to="CW" type="car"/>
+   <flow begin="46800" end="50400" from="NC" id="car_NC_CE_13" number="45" to="CE" type="car"/>
+   <flow begin="46800" end="50400" from="NC" id="car_NC_CS_13" number="45" to="CS" type="car"/>
+   <flow begin="46800" end="50400" from="NC" id="car_NC_CW_13" number="45" to="CW" type="car"/>
+   <flow begin="46800" end="50400" from="SC" id="car_SC_CE_13" number="45" to="CE" type="car"/>
+   <flow begin="46800" end="50400" from="SC" id="car_SC_CN_13" number="45" to="CN" type="car"/>
+   <flow begin="46800" end="50400" from="SC" id="car_SC_CW_13" number="45" to="CW" type="car"/>
+   <flow begin="46800" end="50400" from="WC" id="car_WC_CE_13" number="45" to="CE" type="car"/>
+   <flow begin="46800" end="50400" from="WC" id="car_WC_CN_13" number="45" to="CN" type="car"/>
+   <flow begin="46800" end="50400" from="WC" id="car_WC_CS_13" number="45" to="CS" type="car"/>
+   <flow begin="50400" end="54000" from="EC" id="car_EC_CN_14" number="45" to="CN" type="car"/>
+   <flow begin="50400" end="54000" from="EC" id="car_EC_CS_14" number="45" to="CS" type="car"/>
+   <flow begin="50400" end="54000" from="EC" id="car_EC_CW_14" number="45" to="CW" type="car"/>
+   <flow begin="50400" end="54000" from="NC" id="car_NC_CE_14" number="45" to="CE" type="car"/>
+   <flow begin="50400" end="54000" from="NC" id="car_NC_CS_14" number="45" to="CS" type="car"/>
+   <flow begin="50400" end="54000" from="NC" id="car_NC_CW_14" number="45" to="CW" type="car"/>
+   <flow begin="50400" end="54000" from="SC" id="car_SC_CE_14" number="45" to="CE" type="car"/>
+   <flow begin="50400" end="54000" from="SC" id="car_SC_CN_14" number="45" to="CN" type="car"/>
+   <flow begin="50400" end="54000" from="SC" id="car_SC_CW_14" number="45" to="CW" type="car"/>
+   <flow begin="50400" end="54000" from="WC" id="car_WC_CE_14" number="45" to="CE" type="car"/>
+   <flow begin="50400" end="54000" from="WC" id="car_WC_CN_14" number="45" to="CN" type="car"/>
+   <flow begin="50400" end="54000" from="WC" id="car_WC_CS_14" number="45" to="CS" type="car"/>
+   <flow begin="54000" end="57600" from="EC" id="car_EC_CN_15" number="45" to="CN" type="car"/>
+   <flow begin="54000" end="57600" from="EC" id="car_EC_CS_15" number="45" to="CS" type="car"/>
+   <flow begin="54000" end="57600" from="EC" id="car_EC_CW_15" number="45" to="CW" type="car"/>
+   <flow begin="54000" end="57600" from="NC" id="car_NC_CE_15" number="45" to="CE" type="car"/>
+   <flow begin="54000" end="57600" from="NC" id="car_NC_CS_15" number="45" to="CS" type="car"/>
+   <flow begin="54000" end="57600" from="NC" id="car_NC_CW_15" number="45" to="CW" type="car"/>
+   <flow begin="54000" end="57600" from="SC" id="car_SC_CE_15" number="45" to="CE" type="car"/>
+   <flow begin="54000" end="57600" from="SC" id="car_SC_CN_15" number="45" to="CN" type="car"/>
+   <flow begin="54000" end="57600" from="SC" id="car_SC_CW_15" number="45" to="CW" type="car"/>
+   <flow begin="54000" end="57600" from="WC" id="car_WC_CE_15" number="45" to="CE" type="car"/>
+   <flow begin="54000" end="57600" from="WC" id="car_WC_CN_15" number="45" to="CN" type="car"/>
+   <flow begin="54000" end="57600" from="WC" id="car_WC_CS_15" number="45" to="CS" type="car"/>
+   <flow begin="57600" end="61200" from="EC" id="car_EC_CN_16" number="45" to="CN" type="car"/>
+   <flow begin="57600" end="61200" from="EC" id="car_EC_CS_16" number="45" to="CS" type="car"/>
+   <flow begin="57600" end="61200" from="EC" id="car_EC_CW_16" number="45" to="CW" type="car"/>
+   <flow begin="57600" end="61200" from="NC" id="car_NC_CE_16" number="45" to="CE" type="car"/>
+   <flow begin="57600" end="61200" from="NC" id="car_NC_CS_16" number="45" to="CS" type="car"/>
+   <flow begin="57600" end="61200" from="NC" id="car_NC_CW_16" number="45" to="CW" type="car"/>
+   <flow begin="57600" end="61200" from="SC" id="car_SC_CE_16" number="45" to="CE" type="car"/>
+   <flow begin="57600" end="61200" from="SC" id="car_SC_CN_16" number="45" to="CN" type="car"/>
+   <flow begin="57600" end="61200" from="SC" id="car_SC_CW_16" number="45" to="CW" type="car"/>
+   <flow begin="57600" end="61200" from="WC" id="car_WC_CE_16" number="45" to="CE" type="car"/>
+   <flow begin="57600" end="61200" from="WC" id="car_WC_CN_16" number="45" to="CN" type="car"/>
+   <flow begin="57600" end="61200" from="WC" id="car_WC_CS_16" number="45" to="CS" type="car"/>
+   <flow begin="61200" end="64800" from="EC" id="car_EC_CN_17" number="35" to="CN" type="car"/>
+   <flow begin="61200" end="64800" from="EC" id="car_EC_CS_17" number="35" to="CS" type="car"/>
+   <flow begin="61200" end="64800" from="EC" id="car_EC_CW_17" number="35" to="CW" type="car"/>
+   <flow begin="61200" end="64800" from="NC" id="car_NC_CE_17" number="35" to="CE" type="car"/>
+   <flow begin="61200" end="64800" from="NC" id="car_NC_CS_17" number="35" to="CS" type="car"/>
+   <flow begin="61200" end="64800" from="NC" id="car_NC_CW_17" number="35" to="CW" type="car"/>
+   <flow begin="61200" end="64800" from="SC" id="car_SC_CE_17" number="35" to="CE" type="car"/>
+   <flow begin="61200" end="64800" from="SC" id="car_SC_CN_17" number="35" to="CN" type="car"/>
+   <flow begin="61200" end="64800" from="SC" id="car_SC_CW_17" number="35" to="CW" type="car"/>
+   <flow begin="61200" end="64800" from="WC" id="car_WC_CE_17" number="35" to="CE" type="car"/>
+   <flow begin="61200" end="64800" from="WC" id="car_WC_CN_17" number="35" to="CN" type="car"/>
+   <flow begin="61200" end="64800" from="WC" id="car_WC_CS_17" number="35" to="CS" type="car"/>
+   <flow begin="64800" end="68400" from="EC" id="car_EC_CN_18" number="35" to="CN" type="car"/>
+   <flow begin="64800" end="68400" from="EC" id="car_EC_CS_18" number="35" to="CS" type="car"/>
+   <flow begin="64800" end="68400" from="EC" id="car_EC_CW_18" number="35" to="CW" type="car"/>
+   <flow begin="64800" end="68400" from="NC" id="car_NC_CE_18" number="35" to="CE" type="car"/>
+   <flow begin="64800" end="68400" from="NC" id="car_NC_CS_18" number="35" to="CS" type="car"/>
+   <flow begin="64800" end="68400" from="NC" id="car_NC_CW_18" number="35" to="CW" type="car"/>
+   <flow begin="64800" end="68400" from="SC" id="car_SC_CE_18" number="35" to="CE" type="car"/>
+   <flow begin="64800" end="68400" from="SC" id="car_SC_CN_18" number="35" to="CN" type="car"/>
+   <flow begin="64800" end="68400" from="SC" id="car_SC_CW_18" number="35" to="CW" type="car"/>
+   <flow begin="64800" end="68400" from="WC" id="car_WC_CE_18" number="35" to="CE" type="car"/>
+   <flow begin="64800" end="68400" from="WC" id="car_WC_CN_18" number="35" to="CN" type="car"/>
+   <flow begin="64800" end="68400" from="WC" id="car_WC_CS_18" number="35" to="CS" type="car"/>
+   <flow begin="68400" end="72000" from="EC" id="car_EC_CN_19" number="10" to="CN" type="car"/>
+   <flow begin="68400" end="72000" from="EC" id="car_EC_CS_19" number="10" to="CS" type="car"/>
+   <flow begin="68400" end="72000" from="EC" id="car_EC_CW_19" number="10" to="CW" type="car"/>
+   <flow begin="68400" end="72000" from="NC" id="car_NC_CE_19" number="10" to="CE" type="car"/>
+   <flow begin="68400" end="72000" from="NC" id="car_NC_CS_19" number="10" to="CS" type="car"/>
+   <flow begin="68400" end="72000" from="NC" id="car_NC_CW_19" number="10" to="CW" type="car"/>
+   <flow begin="68400" end="72000" from="SC" id="car_SC_CE_19" number="10" to="CE" type="car"/>
+   <flow begin="68400" end="72000" from="SC" id="car_SC_CN_19" number="10" to="CN" type="car"/>
+   <flow begin="68400" end="72000" from="SC" id="car_SC_CW_19" number="10" to="CW" type="car"/>
+   <flow begin="68400" end="72000" from="WC" id="car_WC_CE_19" number="10" to="CE" type="car"/>
+   <flow begin="68400" end="72000" from="WC" id="car_WC_CN_19" number="10" to="CN" type="car"/>
+   <flow begin="68400" end="72000" from="WC" id="car_WC_CS_19" number="10" to="CS" type="car"/>
+   <flow begin="72000" end="75600" from="EC" id="car_EC_CN_20" number="10" to="CN" type="car"/>
+   <flow begin="72000" end="75600" from="EC" id="car_EC_CS_20" number="10" to="CS" type="car"/>
+   <flow begin="72000" end="75600" from="EC" id="car_EC_CW_20" number="10" to="CW" type="car"/>
+   <flow begin="72000" end="75600" from="NC" id="car_NC_CE_20" number="10" to="CE" type="car"/>
+   <flow begin="72000" end="75600" from="NC" id="car_NC_CS_20" number="10" to="CS" type="car"/>
+   <flow begin="72000" end="75600" from="NC" id="car_NC_CW_20" number="10" to="CW" type="car"/>
+   <flow begin="72000" end="75600" from="SC" id="car_SC_CE_20" number="10" to="CE" type="car"/>
+   <flow begin="72000" end="75600" from="SC" id="car_SC_CN_20" number="10" to="CN" type="car"/>
+   <flow begin="72000" end="75600" from="SC" id="car_SC_CW_20" number="10" to="CW" type="car"/>
+   <flow begin="72000" end="75600" from="WC" id="car_WC_CE_20" number="10" to="CE" type="car"/>
+   <flow begin="72000" end="75600" from="WC" id="car_WC_CN_20" number="10" to="CN" type="car"/>
+   <flow begin="72000" end="75600" from="WC" id="car_WC_CS_20" number="10" to="CS" type="car"/>
+   <flow begin="75600" end="79200" from="EC" id="car_EC_CN_21" number="10" to="CN" type="car"/>
+   <flow begin="75600" end="79200" from="EC" id="car_EC_CS_21" number="10" to="CS" type="car"/>
+   <flow begin="75600" end="79200" from="EC" id="car_EC_CW_21" number="10" to="CW" type="car"/>
+   <flow begin="75600" end="79200" from="NC" id="car_NC_CE_21" number="10" to="CE" type="car"/>
+   <flow begin="75600" end="79200" from="NC" id="car_NC_CS_21" number="10" to="CS" type="car"/>
+   <flow begin="75600" end="79200" from="NC" id="car_NC_CW_21" number="10" to="CW" type="car"/>
+   <flow begin="75600" end="79200" from="SC" id="car_SC_CE_21" number="10" to="CE" type="car"/>
+   <flow begin="75600" end="79200" from="SC" id="car_SC_CN_21" number="10" to="CN" type="car"/>
+   <flow begin="75600" end="79200" from="SC" id="car_SC_CW_21" number="10" to="CW" type="car"/>
+   <flow begin="75600" end="79200" from="WC" id="car_WC_CE_21" number="10" to="CE" type="car"/>
+   <flow begin="75600" end="79200" from="WC" id="car_WC_CN_21" number="10" to="CN" type="car"/>
+   <flow begin="75600" end="79200" from="WC" id="car_WC_CS_21" number="10" to="CS" type="car"/>
+   <flow begin="79200" end="82800" from="EC" id="car_EC_CN_22" number="10" to="CN" type="car"/>
+   <flow begin="79200" end="82800" from="EC" id="car_EC_CS_22" number="10" to="CS" type="car"/>
+   <flow begin="79200" end="82800" from="EC" id="car_EC_CW_22" number="10" to="CW" type="car"/>
+   <flow begin="79200" end="82800" from="NC" id="car_NC_CE_22" number="10" to="CE" type="car"/>
+   <flow begin="79200" end="82800" from="NC" id="car_NC_CS_22" number="10" to="CS" type="car"/>
+   <flow begin="79200" end="82800" from="NC" id="car_NC_CW_22" number="10" to="CW" type="car"/>
+   <flow begin="79200" end="82800" from="SC" id="car_SC_CE_22" number="10" to="CE" type="car"/>
+   <flow begin="79200" end="82800" from="SC" id="car_SC_CN_22" number="10" to="CN" type="car"/>
+   <flow begin="79200" end="82800" from="SC" id="car_SC_CW_22" number="10" to="CW" type="car"/>
+   <flow begin="79200" end="82800" from="WC" id="car_WC_CE_22" number="10" to="CE" type="car"/>
+   <flow begin="79200" end="82800" from="WC" id="car_WC_CN_22" number="10" to="CN" type="car"/>
+   <flow begin="79200" end="82800" from="WC" id="car_WC_CS_22" number="10" to="CS" type="car"/>
+   <flow begin="82800" end="86400" from="EC" id="car_EC_CN_23" number="10" to="CN" type="car"/>
+   <flow begin="82800" end="86400" from="EC" id="car_EC_CS_23" number="10" to="CS" type="car"/>
+   <flow begin="82800" end="86400" from="EC" id="car_EC_CW_23" number="10" to="CW" type="car"/>
+   <flow begin="82800" end="86400" from="NC" id="car_NC_CE_23" number="10" to="CE" type="car"/>
+   <flow begin="82800" end="86400" from="NC" id="car_NC_CS_23" number="10" to="CS" type="car"/>
+   <flow begin="82800" end="86400" from="NC" id="car_NC_CW_23" number="10" to="CW" type="car"/>
+   <flow begin="82800" end="86400" from="SC" id="car_SC_CE_23" number="10" to="CE" type="car"/>
+   <flow begin="82800" end="86400" from="SC" id="car_SC_CN_23" number="10" to="CN" type="car"/>
+   <flow begin="82800" end="86400" from="SC" id="car_SC_CW_23" number="10" to="CW" type="car"/>
+   <flow begin="82800" end="86400" from="WC" id="car_WC_CE_23" number="10" to="CE" type="car"/>
+   <flow begin="82800" end="86400" from="WC" id="car_WC_CN_23" number="10" to="CN" type="car"/>
+   <flow begin="82800" end="86400" from="WC" id="car_WC_CS_23" number="10" to="CS" type="car"/>
 </routes>
