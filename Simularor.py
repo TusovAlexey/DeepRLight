@@ -14,6 +14,7 @@ class Simulator:
         self.traffic_network = None
         self.steps = 0
         self.heatup = 20
+        self.episode = 0
 
         # init state
         if 'SUMO_HOME' in os.environ:
@@ -37,6 +38,7 @@ class Simulator:
         :return:
         """
         traci.start(self.sumo_cmd, label='DeepRLight')
+        self.traffic_network.reset(self.episode)
         for _ in range(random.randint(5, self.heatup)):
             self.traffic_network.dump()
             traci.simulationStep()
@@ -53,8 +55,11 @@ class Simulator:
         self.traffic_network.learn()
 
     def run(self):
-        for episode in range(self.args.episodes):
+        for self.episode in range(self.args.episodes):
             self.reset()
+            self.steps = 0
             while self.steps < self.args.max_steps:
                 self.step()
                 self.learn()
+                self.steps += 1
+            self.close()

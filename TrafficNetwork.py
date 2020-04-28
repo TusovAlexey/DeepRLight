@@ -67,6 +67,7 @@ class Edge:
         return string
 
 class Junction:
+    keys = ['sim_time', 'phase', 'reward', 'cars', 'mean_speed', 'max_wt', 'occupancy']
     def __init__(self, jid, args):
         self.jid = jid
         self.lanes = [Lane(lid) for lid in set(traci.trafficlight.getControlledLanes(jid))]
@@ -82,15 +83,23 @@ class Junction:
         self.reward = None
         self.last_state = None
         self.last_action = None
-        self.log_file = os.path.dirname(args.cfg) + "/logs/junctions/" + self.jid
-        self.logger = Logging(logfile=self.log_file, name="Junction " + self.jid, stdout=True)
-        self.csv_logger = LoggingCsv(self.log_file, self.jid)
+        self.log_root = os.path.dirname(args.cfg) + "/logs/junctions/" + self.jid + "/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + "/"
+        self.logger = Logging(logfile=self.log_root + "prints/", name="Junction " + self.jid, stdout=True)
+        self.csv_logger = LoggingCsv(self.log_root + "statistics/", self.jid + "statistics", Junction.keys)
+        self.phase_logger = LoggingCsv(self.log_root + "phases/", self.jid + "phases", ['sim_time', 'phase'])
 
     def __repr__(self):
         string = "- Junction id: " + self.jid + "\n"
         string += str(self.lanes)
         string += str(self.edges)
         return string
+
+    def reset(self, episode):
+        self.csv_logger.set_new_file("Episode_" + str(episode))
+        self.phase_logger.set_new_file("Episode_" + str(episode))
+        self.phase_logger.log(time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime())),
+                              self.phases[traci.trafficlight.getPhase(self.jid)].state)
+        self.logger.set_new_file("Episode_" + str(episode))
 
     def save_results(self, prev_state, prev_action, new_state, reward):
         if self.last_action is not None:
@@ -109,10 +118,12 @@ class Junction:
         result['occupancy'] = sum([lane.occupancy() for lane in self.lanes])
         result['phase'] = self.phases[traci.trafficlight.getPhase(self.jid)].state
         result['reward'] = self.calculate_reward()
-        self.csv_logger.log(result['sim_time'], result['phase'], result['reward'], result['cars'], result['mean_speed'], result['max_wt'], result['halting_number'], result['occupancy'], result['time'], result['departed'])
+        self.csv_logger.log(result['sim_time'], result['phase'], result['reward'], result['cars'], result['mean_speed'], result['max_wt'], result['occupancy'])
         return self.jid, result
 
     def set_phase(self, phase):
+        if self.last_action != phase:
+            self.phase_logger.log(time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime())), self.phases[phase].state)
         self.last_action = phase
         traci.trafficlight.setPhase(self.jid, phase)
 
@@ -182,6 +193,9 @@ class TrafficNetwork:
         if self.args.animation:
             self.communicator.put(self.dump_data)
 
+    def reset(self, episode):
+        for junction in self.junctions:
+            junction.reset(episode)
 
     def __repr__(self):
         string = "Traffic Network: \n"

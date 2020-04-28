@@ -205,10 +205,10 @@ def plot_generated(file):
 
 
 if __name__ == '__main__':
-    routes_file = '../Networks/double/routes.xml'
-    network_file = '../Networks/double/double.net.xml'
+    routes_file = '../Networks/triple_bus/routes.xml'
+    network_file = '../Networks/triple_bus/triple_bus.net.xml'
     extractRoutes(routes_file)
-    flow_file = '../Networks/double/flows/generated/double.rou.xml'
+    flow_file = '../Networks/triple_bus/flows/generated/triple_bus.rou.xml'
     network = TrafficNetwork(network_file, routes_file)
     network.parse()
     generator = TrafficGenerator(network)

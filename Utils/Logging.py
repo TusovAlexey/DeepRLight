@@ -19,17 +19,25 @@ class CsvFormatter(logging.Formatter):
         return data.strip()
 
 class LoggingCsv:
-    def __init__(self, path, name):
-        os.makedirs(path + "/csv", exist_ok=True)
-
-        self.logger = logging.getLogger(name + "_csv")
+    def __init__(self, path, name, keys):
+        self.keys = keys
+        self.csv_root = path
+        os.makedirs(self.csv_root, exist_ok=True)
+        self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)
-        file_handler = logging.FileHandler(
-            path + "/csv/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + ".csv")
-        file_handler.setLevel(logging.DEBUG)
+        self.file_handler = None
+
+    def set_new_file(self, name):
+        if self.logger.hasHandlers():
+            self.logger.removeHandler(self.file_handler)
+        self.file_handler = logging.FileHandler(
+            self.csv_root + name + ".csv")
+        self.file_handler.setLevel(logging.DEBUG)
         file_format = CsvFormatter()
-        file_handler.setFormatter(file_format)
-        self.logger.addHandler(file_handler)
+        self.file_handler.setFormatter(file_format)
+        self.logger.addHandler(self.file_handler)
+        header = "#" + ",".join(self.keys)
+        self.logger.info(header)
 
     def log(self, *args):
         msg = ""
@@ -40,18 +48,13 @@ class LoggingCsv:
 class Logging:
     def __init__(self, loglevel=logging.DEBUG, logfile=None, stdout=False, name='root'):
         assert logfile is not None or stdout is True
-
+        self.level = loglevel
         self.logger = logging.getLogger(name)
         self.logger.setLevel(loglevel)
-
+        self.root_dir = logfile
+        self.file_handler = None
         if logfile is not None:
-            os.makedirs(logfile + "/prints", exist_ok=True)
-            file_format = logging.Formatter('%(message)s')
-            file_handler = logging.FileHandler(logfile + "/prints/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + ".log")
-            file_handler.setLevel(loglevel)
-            file_handler.setFormatter(file_format)
-            self.logger.addHandler(file_handler)
-
+            os.makedirs(self.root_dir, exist_ok=True)
         if stdout:
             stdout_format = logging.Formatter('[%(asctime)s | %(levelname)s | %(name)s] %(message)s')
             stdout_handler = logging.StreamHandler(sys.stdout)
@@ -62,6 +65,14 @@ class Logging:
         logging.addLevelName(logging.INFO, logging.getLevelName(logging.INFO))
         logging.addLevelName(logging.ERROR, logging.getLevelName(logging.ERROR))
 
+    def set_new_file(self, name):
+        if self.logger.hasHandlers():
+            self.logger.removeHandler(self.file_handler)
+        self.file_handler = logging.FileHandler(self.root_dir + name + ".log")
+        self.file_handler.setLevel(self.level)
+        file_format = logging.Formatter('%(message)s')
+        self.file_handler.setFormatter(file_format)
+        self.logger.addHandler(self.file_handler)
 
     def info(self, msg):
         self.logger.info(msg)

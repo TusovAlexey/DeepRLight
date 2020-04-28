@@ -1,7 +1,7 @@
 <configuration>
     <input>
        <net-file value="double.net.xml"/>
-       <route-files value="flows/generated/double.rou.xml"/>
+       <route-files value="flows/manual/double.rou.xml"/>
     </input>
 	<time-to-teleport value="-1"/>
 	<time>
