@@ -6,7 +6,7 @@
 	<time-to-teleport value="-1"/>
 	<time>
         <begin value="0"/>
-        <end value="86400"/>
+        <end value="3000"/>
         <step-length value="1"/>
     </time>
     <gui_only>
