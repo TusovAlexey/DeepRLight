@@ -31,6 +31,8 @@ class AgentParams:
         self.grad_clip = int(self.config.get('params', 'grad_clip'))
         self.target_update = float(self.config.get('params', 'target_update'))
         self.sim_step = int(self.config.get('params', 'sim_step'))
+        self.yellow_duration = int(self.config.get('params', 'yellow_duration'))
+        self.min_green_duration = int(self.config.get('params', 'min_green_duration'))
 
 
 

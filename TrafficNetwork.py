@@ -73,6 +73,7 @@ class Junction:
         self.lanes = [Lane(lid) for lid in set(traci.trafficlight.getControlledLanes(jid))]
         self.edges = [Edge(eid) for eid in set([lane.get_edge_id() for lane in self.lanes])]
         self.phases = traci.trafficlight.getCompleteRedYellowGreenDefinition(jid)[0].getPhases()
+        self.default_program = traci.trafficlight.getProgram(jid)
         self.state = None
         self.config_file = os.path.dirname(args.cfg) + "/parameters/" + self.jid + ".ini"
         self.agentParams = AgentParams(self.config_file)
@@ -82,11 +83,14 @@ class Junction:
         self.steps_counter = 0
         self.reward = None
         self.last_state = None
-        self.last_action = None
+        self.last_action = traci.trafficlight.getPhase(self.jid)
         self.log_root = os.path.dirname(args.cfg) + "/logs/junctions/" + self.jid + "/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + "/"
         self.logger = Logging(logfile=self.log_root + "prints/", name="Junction " + self.jid, stdout=True)
         self.csv_logger = LoggingCsv(self.log_root + "statistics/", self.jid + "statistics", Junction.keys)
         self.phase_logger = LoggingCsv(self.log_root + "phases/", self.jid + "phases", ['sim_time', 'phase'])
+        self.next_phase = None
+        self.current_phase_state = self.phases[traci.trafficlight.getPhase(self.jid)].state
+        self.yellow_steps_counter = 0
 
     def __repr__(self):
         string = "- Junction id: " + self.jid + "\n"
@@ -100,9 +104,10 @@ class Junction:
         self.phase_logger.log(time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime())),
                               self.phases[traci.trafficlight.getPhase(self.jid)].state)
         self.logger.set_new_file("Episode_" + str(episode))
+        self.last_phase = traci.trafficlight.getPhase(self.jid)
 
     def save_results(self, prev_state, prev_action, new_state, reward):
-        if self.last_action is not None:
+        if self.last_action is not None and prev_state is not None:
             self.agent.add_to_memory(prev_state, prev_action, new_state, reward)
 
     def dump(self):
@@ -121,11 +126,26 @@ class Junction:
         self.csv_logger.log(result['sim_time'], result['phase'], result['reward'], result['cars'], result['mean_speed'], result['max_wt'], result['occupancy'])
         return self.jid, result
 
+    def set_yellow_phase(self, next_phase):
+        current_phase_state = self.phases[self.last_action].state
+        next_phase_state = self.phases[next_phase].state
+        yellow_phase_state = ''.join(['y' if prev_light.lower()=='g' and new_light.lower()=='r' else prev_light for prev_light, new_light in zip(current_phase_state, next_phase_state)])
+        self.phase_logger.log(time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime())),
+                              yellow_phase_state)
+        traci.trafficlight.setRedYellowGreenState(self.jid, yellow_phase_state)
+        self.current_phase_state = yellow_phase_state
+        self.next_phase = next_phase
+        self.yellow_steps_counter = 0
+
     def set_phase(self, phase):
         if self.last_action != phase:
-            self.phase_logger.log(time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime())), self.phases[phase].state)
-        self.last_action = phase
+            self.phase_logger.log(time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime())),
+                              self.phases[phase].state)
+        traci.trafficlight.setProgram(self.jid, self.default_program)
         traci.trafficlight.setPhase(self.jid, phase)
+        self.current_phase_state = self.phases[phase].state
+        self.last_action = phase
+        self.steps_counter = 0
 
     def generate_state(self):
         phase_state = np.eye(len(self.phases))[traci.trafficlight.getPhase(self.jid)]
@@ -134,23 +154,42 @@ class Junction:
 
     def calculate_reward(self):
         # max waiting time
-        return -1*max([lane.waiting_time() for lane in self.lanes])
+        #return -1*max([lane.waiting_time() for lane in self.lanes])
+        return max(np.mean([lane.mean_speed() for lane in self.lanes]) * sum([lane.num_cars() for lane in self.lanes]), 0)
 
     def step(self):
-        # Do agent step once for sim_step simulator steps
+        if self.current_phase_state.count('y') > 0:
+            # Current phase is yellow
+            self.yellow_steps_counter += 1
+            if self.yellow_steps_counter >= self.agentParams.yellow_duration:
+                self.yellow_steps_counter = 0
+                # Time to change to next phase
+                self.set_phase(self.next_phase)
+                return
+            return
+
         self.steps_counter += 1
+        # Do agent step once for sim_step simulator steps
         if self.steps_counter < self.agentParams.sim_step:
             return
-        self.steps_counter = 0
 
         # Calculate reward for last previous action
         reward = self.calculate_reward()
         new_state = self.generate_state()
         self.save_results(self.last_state, self.last_action, new_state, reward)
 
+        if self.steps_counter < self.agentParams.min_green_duration:
+            return
+
         self.last_state = new_state
         action = self.agent.select_action(self.last_state)
-        self.set_phase(action)
+
+        if self.last_action != action:
+            # Yellow phase required
+            self.set_yellow_phase(action)
+        else:
+            self.set_phase(action)
+
 
     def learn(self):
         # Learn after number of sim_step done
