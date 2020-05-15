@@ -1,21 +1,21 @@
 <configuration>
     <input>
-       <net-file value="Derech_akko_small.net.xml"/>
-       <route-files value="flows/generated/Derech_akko_small.rou.xml"/>
+       <net-file value="Network.net.xml"/>
+       <route-files value="flows/generated/Routes.rou.xml"/>
     </input>
 	<time-to-teleport value="-1"/>
 	<time>
         <begin value="0"/>
-        <end value="86400"/>
+        <end value="100"/>
         <step-length value="1"/>
     </time>
     <gui_only>
-        <gui-settings-file value="../gui_settings.xml"/>
+        <gui-settings-file value="./Views/Zvulun.xml,./Views/AhiEilat.xml,./Views/Mozart.xml,./Views/Ushiskin.xml"/>
         <game value="false"/>
         <start value="false"/>
     </gui_only>
     <output>
-        <summary-output value="Derech_akko_small.out.xml"/>
+        <summary-output value="Output.out.xml"/>
     </output>
     <processing>
 	<ignore-route-errors value="true"/>

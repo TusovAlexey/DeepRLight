@@ -213,9 +213,9 @@ def plot_generated(file):
 
 if __name__ == '__main__':
     routes_file = '../Networks/Derech_akko_small/routes/routes.xml'
-    network_file = '../Networks/Derech_akko_small/Derech_akko_small.net.xml'
+    network_file = '../Networks/Derech_akko_small/Network.net.xml'
     extractRoutes(routes_file)
-    flow_file = '../Networks/Derech_akko_small/flows/generated/Derech_akko_small.rou.xml'
+    flow_file = '../Networks/Derech_akko_small/flows/generated/Routes.rou.xml'
     network = TrafficNetwork(network_file, routes_file)
     network.parse()
     generator = TrafficGenerator(network)

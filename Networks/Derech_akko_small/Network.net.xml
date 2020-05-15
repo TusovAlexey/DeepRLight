@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\Alexey\GDrive\projects\DeepRLight\Networks\Derech_akko_small\Derech_akko_small.net.xml"/>
+        <sumo-net-file value="C:\Users\Alexey\GDrive\projects\DeepRLight\Networks\Derech_akko_small\Network.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\Alexey\GDrive\projects\DeepRLight\Networks\Derech_akko_small\Derech_akko_small.net.xml"/>
+        <output-file value="C:\Users\Alexey\GDrive\projects\DeepRLight\Networks\Derech_akko_small\Network.net.xml"/>
     </output>
 
     <processing>

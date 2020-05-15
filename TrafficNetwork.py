@@ -3,7 +3,7 @@ import traci
 from Utils.AgentParams import AgentParams
 from Agent import Double_DQN_Agent
 import numpy as np
-from Utils.Logging import Logging, LoggingCsv
+from Utils.Logging import Logging, LoggingCsv, GUIScreenShot
 from Utils.PlotAnimation import PlotAnimation, animation_process
 import time
 import matplotlib;
@@ -68,7 +68,7 @@ class Edge:
 
 class Junction:
     keys = ['sim_time', 'phase', 'reward', 'cars', 'mean_speed', 'max_wt', 'occupancy']
-    def __init__(self, jid, args):
+    def __init__(self, jid, args, network_log_root, screenshots_logger):
         self.jid = jid
         self.lanes = [Lane(lid) for lid in set(traci.trafficlight.getControlledLanes(jid))]
         self.edges = [Edge(eid) for eid in set([lane.get_edge_id() for lane in self.lanes])]
@@ -84,13 +84,16 @@ class Junction:
         self.reward = None
         self.last_state = None
         self.last_action = traci.trafficlight.getPhase(self.jid)
-        self.log_root = os.path.dirname(args.cfg) + "/logs/junctions/" + self.jid + "/" + time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime()) + "/"
-        self.logger = Logging(logfile=self.log_root + "prints/", name="Junction " + self.jid, stdout=True)
-        self.csv_logger = LoggingCsv(self.log_root + "statistics/", self.jid + "statistics", Junction.keys)
-        self.phase_logger = LoggingCsv(self.log_root + "phases/", self.jid + "phases", ['sim_time', 'phase'])
+        self.network_log_root = network_log_root
+        self.log_root = os.path.join(self.network_log_root, self.jid)
+        self.logger = Logging(logfile=os.path.join(self.log_root, "prints"), name="Junction " + self.jid, stdout=True)
+        self.csv_logger = LoggingCsv(os.path.join(self.log_root, "statistics"), self.jid + "statistics", Junction.keys)
+        self.phase_logger = LoggingCsv(os.path.join(self.log_root, "phases"), self.jid + "phases", ['sim_time', 'phase'])
+        self.screenshots_logger = screenshots_logger
         self.next_phase = None
         self.current_phase_state = self.phases[traci.trafficlight.getPhase(self.jid)].state
         self.yellow_steps_counter = 0
+        self.episode = 0
 
     def __repr__(self):
         string = "- Junction id: " + self.jid + "\n"
@@ -99,6 +102,7 @@ class Junction:
         return string
 
     def reset(self, episode):
+        self.episode = episode
         self.csv_logger.set_new_file("Episode_" + str(episode))
         self.phase_logger.set_new_file("Episode_" + str(episode))
         self.phase_logger.log(time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime())),
@@ -123,6 +127,7 @@ class Junction:
         result['occupancy'] = sum([lane.occupancy() for lane in self.lanes])
         result['phase'] = self.phases[traci.trafficlight.getPhase(self.jid)].state
         result['reward'] = self.calculate_reward()
+        self.screenshots_logger.log(self.episode, result['reward'], result['cars'], result['mean_speed'], result['max_wt'])
         self.csv_logger.log(result['sim_time'], result['phase'], result['reward'], result['cars'], result['mean_speed'], result['max_wt'], result['occupancy'])
         return self.jid, result
 
@@ -190,6 +195,8 @@ class Junction:
         else:
             self.set_phase(action)
 
+    def close(self):
+        self.screenshots_logger.close()
 
     def learn(self):
         # Learn after number of sim_step done
@@ -198,12 +205,16 @@ class Junction:
 
 
 class TrafficNetwork:
-    def __init__(self, args):
+    def __init__(self, args, views_dict):
         self.args = args
-        self.junctions = [Junction(jid, args) for jid in list(traci.trafficlight.getIDList())]
+        self.time = time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime())
+        self.network_log_root = os.path.join(os.path.join(args.network, 'logs'), self.time)
+        self.junctions = [Junction(jid, args, self.network_log_root, GUIScreenShot(os.path.join(self.network_log_root, "captures"), jid, views_dict[jid])) for jid in list(traci.trafficlight.getIDList())]
+        #self.network_screen_logger = GUIScreenShot(os.path.join(self.network_log_root, "screenshots"), 'Network', views_dict['Network'])
         self.dump_data = dict()
         self.seconds_update = 600
         self.seconds_counter = 0
+        self.episode = 0
         if args.animation:
             self.create_plot_animation()
 
@@ -217,6 +228,11 @@ class TrafficNetwork:
         for junction in self.junctions:
             self.dump_list[junction.jid] = list()
 
+    def close(self):
+        #self.network_screen_logger.close()
+        for juntion in self.junctions:
+            juntion.close()
+
     def step(self):
         for junction in self.junctions:
             junction.step()
@@ -229,10 +245,12 @@ class TrafficNetwork:
         for junction in self.junctions:
             jid, results = junction.dump()
             self.dump_data[jid] = dict((k, results[k]) for k in ('time', 'cars', 'max_wt', 'mean_speed'))
+        #self.network_screen_logger.log(self.episode)
         if self.args.animation:
             self.communicator.put(self.dump_data)
 
     def reset(self, episode):
+        self.episode = episode
         for junction in self.junctions:
             junction.reset(episode)
 

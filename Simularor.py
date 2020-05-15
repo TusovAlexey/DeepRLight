@@ -25,12 +25,21 @@ class Simulator:
         self.sumo_cmd = [checkBinary('sumo'), '-c', args.cfg,
                          '--no-warnings']  # ,'--no-step-log',
         traci.start(self.sumo_cmd, label='DeepRLight')
-        self.traffic_network = TrafficNetwork(self.args)
+        view_dict, view_paths = self.parse_gui_settings()
+        self.traffic_network = TrafficNetwork(self.args, view_dict)
         traci.close()
+
         if self.args.gui == False:
            self.sumo_cmd = [checkBinary('sumo'), '-c', self.args.cfg, '--no-warnings']
         else:
-           self.sumo_cmd = [checkBinary('sumo-gui'), '-c', self.args.cfg, '--start', '--quit-on-end', '--gui-settings-file', './Networks/gui_settings.xml']
+           #self.sumo_cmd = [checkBinary('sumo-gui'), '-c', self.args.cfg, '--start', '--quit-on-end', '-g', ",".join(view_paths)]
+           self.sumo_cmd = [checkBinary('sumo-gui'), '-c', self.args.cfg, '--start', '--quit-on-end']
+
+    def parse_gui_settings(self):
+        views_path = [os.path.abspath(file) for file in os.listdir(os.path.dirname(self.args.cfg) + "/Views/")]
+        views_names = {file.split(".")[0] : i for i ,file in enumerate(os.listdir(os.path.dirname(self.args.cfg) + "/Views/"))}
+        return views_names, views_path
+
 
     def reset(self):
         """
@@ -44,6 +53,7 @@ class Simulator:
             traci.simulationStep()
 
     def close(self):
+        self.traffic_network.close()
         traci.close()
 
     def step(self):

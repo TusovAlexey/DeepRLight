@@ -1,9 +1,20 @@
 import sys
 import logging
-import time
 import io
 import csv
 import os
+import traci
+from io import StringIO
+import cv2
+import glob
+import time
+import matplotlib
+from PIL import Image, ImageDraw, ImageFont
+import subprocess
+from subprocess import Popen, PIPE
+matplotlib.use('Agg')
+
+FFMPEG_SOURCE = "ffmpeg\\bin\\ffmpeg.exe"
 
 class CsvFormatter(logging.Formatter):
     def __init__(self):
@@ -77,6 +88,49 @@ class Logging:
     def info(self, msg):
         self.logger.info(msg)
 
+class GUIScreenShot:
+    def __init__(self, path, name, view_id):
+        self.root = os.path.join(path, name)
+        self.name = name
+        self.picture = None
+        self.video_path = os.path.join(self.root, self.name + ".mp4")
+        os.makedirs(self.root, exist_ok=True)
+        self.view = 'View #' + str(view_id)
+        self.conter = 0
+
+    def _handle_saved_pic(self):
+        img = Image.open(self.picture)
+        name = os.path.basename(self.picture).split(".")[0]
+        pic_episode = name.split("__")[0]
+        pic_time = name.split("__")[1].replace("_", ":")
+        #pic_reward = name.split("__")[2].replace("_", ".")
+        pic_cars = name.split("__")[3]
+        pic_mean_speed = name.split("__")[4].replace("_", ".")
+        pic_max_wt = name.split("__")[5].replace("_", ".")
+        draw = ImageDraw.Draw(img)
+        font = ImageFont.truetype("C:\\windows\\fonts\\stencil.ttf", 25, encoding="unic")
+        draw.text((0, 0), "Episode  " + pic_episode, fill='Black', font=font)
+        draw.text((0, 30), "Time  " + pic_time, fill='Black', font=font)
+        #draw.text((0, 60), "Reward  " + pic_reward, fill='Black', font=font)
+        img.save(os.path.join(self.root, "%08d" % self.conter + ".png"), quality=20, optimize=True)
+        self.conter += 1
+        os.remove(self.picture)
+
+
+    def log(self, episode, reward=None, num_cars=None, mean_speed=None, max_wt=None):
+        if self.picture is not None and os.path.exists(self.picture):
+            self._handle_saved_pic()
+        sim_time = time.strftime('%H_%M_%S', time.gmtime(traci.simulation.getTime()))
+        self.picture = os.path.join(self.root, str(episode) + "__" + sim_time + "__" + str(reward).replace(".","_") + "__" + str(num_cars) + "__" + str(mean_speed).replace(".","_") + "__" + str(max_wt).replace(".","_") + ".png")
+        if traci.gui.hasView(self.view):
+            traci.gui.screenshot(self.view, self.picture)
+
+    def close(self):
+        cmd = FFMPEG_SOURCE + " -r 60 -start_number 0 -i " + os.path.join(self.root, "%08d.png") + " -vcodec libx264 " + self.video_path
+        os.system(cmd)
+        for f in os.listdir(self.root):
+            if f.endswith(".png"):
+                os.remove(os.path.join(self.root, f))
 
 
 Logger = Logging(stdout=True)
