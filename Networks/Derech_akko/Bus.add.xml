@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/21/20 04:38:26 by Eclipse SUMO netedit Version 1.6.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\Alexey\GDrive\projects\DeepRLight\Networks\Derech_akko\Network.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Alexey\GDrive\projects\DeepRLight\Networks\Derech_akko\Network.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\Alexey\GDrive\projects\DeepRLight\Networks\Derech_akko\Bus.add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="Bus_1" lane="gneE23.41_1" startPos="9.02" endPos="29.02" lines="22 24 25 26"/>
+    <busStop id="Bus_2" lane="gneE39.48_1" startPos="12.14" endPos="32.14" lines="22 24 25 145"/>
+    <busStop id="Bus_3" lane="gneE73.36_1" startPos="6.70" endPos="26.70" lines="22 24 26"/>
+    <busStop id="Bus_4" lane="Main_1.31_1" startPos="4.22" endPos="24.22"/>
+    <busStop id="Bus_5" lane="gneE74.38_1" startPos="12.86" endPos="22.86" lines="23 25"/>
+    <busStop id="Bus_6" lane="gneE25.25_0" startPos="325.91" endPos="335.91" lines="23 25"/>
+    <busStop id="Metronit_0" lane="gneE22_0" startPos="346.79" endPos="366.79" lines="1 2"/>
+    <busStop id="Metronit_2" lane="gneE21_0" startPos="4.28" endPos="24.28" lines="1 2"/>
+    <busStop id="Metronit_3" lane="gneE49_0" startPos="952.98" endPos="972.98" lines="1"/>
+    <busStop id="Metronit_4" lane="gneE48_0" startPos="4.64" endPos="24.64" lines="1"/>
+    <busStop id="Metronit_5" lane="gneE49_0" startPos="3.52" endPos="23.52" lines="1"/>
+    <busStop id="Metronit_6" lane="gneE48_0" startPos="954.29" endPos="974.29" lines="1"/>
+    <busStop id="Metronit_7" lane="gneE75_0" startPos="523.36" endPos="543.36" lines="1"/>
+    <busStop id="Metronit_8" lane="gneE76_0" startPos="2.85" endPos="22.85" lines="1"/>
+</additional>

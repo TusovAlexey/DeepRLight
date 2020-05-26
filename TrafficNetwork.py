@@ -31,13 +31,43 @@ class Lane:
         """ Returns the mean speed of vehicles that were on this lane within the last simulation step [m/s] """
         return traci.lane.getLastStepMeanSpeed(self.lid)
 
-    def waiting_time(self):
-        """Returns the waiting time for all vehicles on the lane [s]"""
+    def passenger_mean_speed(self):
+        veh = [vid for vid in traci.lane.getLastStepVehicleIDs(self.lid) if traci.vehicle.getVehicleClass(vid)=='passenger']
+        if len(veh)==0:
+            return 0
+        return np.mean([traci.vehicle.getSpeed(vid) for vid in veh])
+
+    def bus_mean_speed(self):
+        veh = [vid for vid in traci.lane.getLastStepVehicleIDs(self.lid) if
+               traci.vehicle.getVehicleClass(vid) == 'bus']
+        if len(veh) == 0:
+            return 0
+        return np.mean([traci.vehicle.getSpeed(vid) for vid in veh])
+
+    def emergency_mean_speed(self):
+        veh = [vid for vid in traci.lane.getLastStepVehicleIDs(self.lid) if
+               traci.vehicle.getVehicleClass(vid) == 'emergency']
+        if len(veh) == 0:
+            return 0
+        return np.mean([traci.vehicle.getSpeed(vid) for vid in veh])
+
+    def max_waiting_time(self):
+        """Returns the max waiting time for all vehicles on the lane [s]"""
         return max([float(0)] + [traci.vehicle.getAccumulatedWaitingTime(car_id) for car_id in traci.lane.getLastStepVehicleIDs(self.lid)])
 
     def num_cars(self):
-        """The number of vehicles on this lane within the last time step."""
-        return traci.lane.getLastStepVehicleNumber(self.lid)
+        """The number of passenger vehicles on this lane within the last time step."""
+        return len([vid for vid in traci.lane.getLastStepVehicleIDs(self.lid) if traci.vehicle.getVehicleClass(vid)=='passenger'])
+
+    def num_buses(self):
+        """The number of bus vehicles on this lane within the last time step."""
+        return len([vid for vid in traci.lane.getLastStepVehicleIDs(self.lid) if
+                    traci.vehicle.getVehicleClass(vid) == 'bus'])
+
+    def num_emergency(self):
+        """The number of emergency vehicles on this lane within the last time step."""
+        return len([vid for vid in traci.lane.getLastStepVehicleIDs(self.lid) if
+                    traci.vehicle.getVehicleClass(vid) == 'emergency'])
 
     def occupancy(self):
         """Returns the total lengths of vehicles on this lane during the last simulation step divided by the length of this lane"""
@@ -66,15 +96,26 @@ class Edge:
         string = "  - Edge id: " + self.eid + ", number of lanes: " + str(self.num_lanes) + "\n"
         return string
 
+    def get_persons(self):
+        return traci.edge.getLastStepPersonIDs(self.eid)
+
+    def get_waiting_persons(self):
+        return [person for person in self.get_persons() if traci.person.getStage(person)==1]
+
+
+
+
 class Junction:
-    keys = ['sim_time', 'phase', 'reward', 'cars', 'mean_speed', 'max_wt', 'occupancy']
+    keys = ['sim_time', 'phase', 'reward', 'cars', 'buses', 'mean_speed', 'passenger_mean_speed', 'bus_mean_speed', 'emergency_mean_speed', 'max_wt', 'occupancy', 'persons', 'waiting_persons']
     def __init__(self, jid, args, network_log_root, screenshots_logger):
         self.jid = jid
-        self.lanes = [Lane(lid) for lid in set(traci.trafficlight.getControlledLanes(jid))]
-        self.edges = [Edge(eid) for eid in set([lane.get_edge_id() for lane in self.lanes])]
+        self.lanes = [Lane(lid) for lid in set(traci.trafficlight.getControlledLanes(jid)) if 'pedestrian' not in traci.lane.getAllowed(lid)]
+        self.walking_lanes = [Lane(lid) for lid in set(traci.trafficlight.getControlledLanes(jid)) if 'pedestrian' in traci.lane.getAllowed(lid)]
+        self.edges = [Edge(eid) for eid in set([traci.lane.getEdgeID(lid) for lid in traci.trafficlight.getControlledLanes(jid)])]
         self.phases = traci.trafficlight.getCompleteRedYellowGreenDefinition(jid)[0].getPhases()
         self.default_program = traci.trafficlight.getProgram(jid)
         self.state = None
+        self.args = args
         self.config_file = os.path.dirname(args.cfg) + "/parameters/" + self.jid + ".ini"
         self.agentParams = AgentParams(self.config_file)
         self.input_size = len(self.lanes) + len(self.phases)
@@ -119,16 +160,23 @@ class Junction:
         result['sim_time'] = time.strftime('%H:%M:%S', time.gmtime(traci.simulation.getTime()))
         result['time'] = int(traci.simulation.getTime())
         result['cars'] = sum([lane.num_cars() for lane in self.lanes])
+        result['buses'] = sum([lane.num_buses() for lane in self.lanes])
         result['departed'] = sum([lane.departed_number() for lane in self.lanes])
         mean = [lane.mean_speed() for lane in self.lanes]
         result['mean_speed'] = np.mean(mean)
-        result['max_wt'] = max([lane.waiting_time() for lane in self.lanes])
+        result['passenger_mean_speed'] = np.mean([lane.passenger_mean_speed() for lane in self.lanes])
+        result['bus_mean_speed'] = np.mean([lane.bus_mean_speed() for lane in self.lanes])
+        result['emergency_mean_speed'] = np.mean([lane.emergency_mean_speed() for lane in self.lanes])
+        result['max_wt'] = max([lane.max_waiting_time() for lane in self.lanes])
         result['halting_number'] = sum([lane.halting_number() for lane in self.lanes])
         result['occupancy'] = sum([lane.occupancy() for lane in self.lanes])
         result['phase'] = self.phases[traci.trafficlight.getPhase(self.jid)].state
         result['reward'] = self.calculate_reward()
-        self.screenshots_logger.log(self.episode, result['reward'], result['cars'], result['mean_speed'], result['max_wt'])
-        self.csv_logger.log(result['sim_time'], result['phase'], result['reward'], result['cars'], result['mean_speed'], result['max_wt'], result['occupancy'])
+        result['persons'] = sum([len(edge.get_persons()) for edge in self.edges])
+        result['waiting_persons'] = sum([len(edge.get_waiting_persons()) for edge in self.edges])
+        if self.args.capture and (self.episode % self.args.episode_capture) == 0:
+            self.screenshots_logger.log(self.episode, result['reward'], result['cars'], result['mean_speed'], result['max_wt'])
+        self.csv_logger.log(result['sim_time'], result['phase'], result['reward'], result['cars'], result['buses'], result['mean_speed'], result['passenger_mean_speed'], result['bus_mean_speed'], result['emergency_mean_speed'], result['max_wt'], result['occupancy'], result['persons'], result['waiting_persons'])
         return self.jid, result
 
     def set_yellow_phase(self, next_phase):
@@ -196,7 +244,8 @@ class Junction:
             self.set_phase(action)
 
     def close(self):
-        self.screenshots_logger.close()
+        if self.args.capture:
+            self.screenshots_logger.close()
 
     def learn(self):
         # Learn after number of sim_step done
@@ -210,7 +259,6 @@ class TrafficNetwork:
         self.time = time.strftime('%Y_%m_%d__%H_%M_%S', time.localtime())
         self.network_log_root = os.path.join(os.path.join(args.network, 'logs'), self.time)
         self.junctions = [Junction(jid, args, self.network_log_root, GUIScreenShot(os.path.join(self.network_log_root, "captures"), jid, views_dict[jid])) for jid in list(traci.trafficlight.getIDList())]
-        #self.network_screen_logger = GUIScreenShot(os.path.join(self.network_log_root, "screenshots"), 'Network', views_dict['Network'])
         self.dump_data = dict()
         self.seconds_update = 600
         self.seconds_counter = 0

@@ -42,7 +42,7 @@ class LoggingCsv:
         if self.logger.hasHandlers():
             self.logger.removeHandler(self.file_handler)
         self.file_handler = logging.FileHandler(
-            self.csv_root + name + ".csv")
+            os.path.join(self.csv_root,name + ".csv"))
         self.file_handler.setLevel(logging.DEBUG)
         file_format = CsvFormatter()
         self.file_handler.setFormatter(file_format)
@@ -79,7 +79,7 @@ class Logging:
     def set_new_file(self, name):
         if self.logger.hasHandlers():
             self.logger.removeHandler(self.file_handler)
-        self.file_handler = logging.FileHandler(self.root_dir + name + ".log")
+        self.file_handler = logging.FileHandler(os.path.join(self.root_dir,name + ".log"))
         self.file_handler.setLevel(self.level)
         file_format = logging.Formatter('%(message)s')
         self.file_handler.setFormatter(file_format)

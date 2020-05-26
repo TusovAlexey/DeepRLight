@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/18/20 02:24:36 by Eclipse SUMO duarouter Version 1.2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="Network.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.xml"/>
+        <alternatives-output value="routes.alt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType accel="1.71" decel="4.35" guiShape="bus/flexible" id="Metronit" length="20" maxSpeed="35.2" minGap="1.34" sigma="0" vClass="bus" personCapacity="100"/>
+    <vType accel="1.71" decel="4.35" guiShape="bus" id="Bus" length="10" maxSpeed="35.2" minGap="1.34" sigma="0" vClass="bus" personCapacity="50"/>
+
+    <route id="Metronit_lane_1_north" edges="gneE0 gneE21 gneE21.311 gneE48 gneE75 gneE108">
+        <stop busStop="Metronit_2" duration="30" friendlyPos="true"/>
+        <stop busStop="Metronit_4" duration="30" friendlyPos="true"/>
+        <stop busStop="Metronit_6" duration="30" friendlyPos="true"/>
+        <stop busStop="Metronit_7" duration="30" friendlyPos="true"/>
+    </route>
+
+    <route id="Metronit_lane_1_south" edges="gneE109 gneE76 gneE49 gneE22 gneE1">
+        <stop busStop="Metronit_8" duration="30" friendlyPos="true"/>
+        <stop busStop="Metronit_5" duration="30" friendlyPos="true"/>
+        <stop busStop="Metronit_3" duration="30" friendlyPos="true"/>
+        <stop busStop="Metronit_0" duration="30" friendlyPos="true"/>
+    </route>
+
+    <route id="Metronit_lane_2_north" edges="gneE0 gneE21 gneE21.311 gneE51 city_gneE51.33">
+        <stop busStop="Metronit_2" duration="30" friendlyPos="true"/>
+    </route>
+
+    <route id="Metronit_lane_2_south" edges="gneE50 gneE50.135 gneE50.90 gneE22 gneE1">
+        <stop busStop="Metronit_0" duration="30" friendlyPos="true"/>
+    </route>
+
+    <route id="Bus_lane_22_north" edges="gneE2 gneE23 gneE23.41 gneE23.83 gneE23.292 gneE23.312 gneE39 gneE39.48 gneE39.98 gneE39.950 gneE73 gneE73.20 gneE73.36 gneE73.75 Main_1 Main_1.31 Main_1.65">
+        <stop busStop="Bus_1" duration="20" friendlyPos="true"/>
+        <stop busStop="Bus_2" duration="20" friendlyPos="true"/>
+        <stop busStop="Bus_3" duration="20" friendlyPos="true"/>
+        <stop busStop="Bus_4" duration="20" friendlyPos="true"/>
+    </route>
+
+    <route id="Bus_lane_22_south" edges="Main_2 gneE106.238 gneE74 gneE74.38 gneE74.85 gneE74.304 gneE38 gneE38.47 gneE38.890 gneE38.113 gneE25 gneE25.25 Main_3">
+        <stop busStop="Bus_5" duration="20" friendlyPos="true"/>
+        <stop busStop="Bus_6" duration="20" friendlyPos="true"/>
+    </route>
+
+    <flow id="Metronit_lane_1_north_00_to_06" type="Metronit" route="Metronit_lane_1_north" line="1" begin="0" end="21600" period="3600"/>
+    <flow id="Metronit_lane_1_north_06_to_07" type="Metronit" route="Metronit_lane_1_north" line="1" begin="21600" end="25200" period="1800"/>
+    <flow id="Metronit_lane_1_north_07_to_09" type="Metronit" route="Metronit_lane_1_north" line="1" begin="25200" end="32400" period="600"/>
+    <flow id="Metronit_lane_1_north_09_to_12" type="Metronit" route="Metronit_lane_1_north" line="1" begin="32400" end="43200" period="1200"/>
+    <flow id="Metronit_lane_1_north_12_to_16" type="Metronit" route="Metronit_lane_1_north" line="1" begin="43200" end="57600" period="1800"/>
+    <flow id="Metronit_lane_1_north_16_to_18" type="Metronit" route="Metronit_lane_1_north" line="1" begin="57600" end="64800" period="1200"/>
+    <flow id="Metronit_lane_1_north_18_to_20" type="Metronit" route="Metronit_lane_1_north" line="1" begin="64800" end="72000" period="2400"/>
+    <flow id="Metronit_lane_1_north_20_to_24" type="Metronit" route="Metronit_lane_1_north" line="1" begin="72000" end="86400" period="3600"/>
+
+    <flow id="Metronit_lane_1_south_00_to_06" type="Metronit" route="Metronit_lane_1_south" line="1" begin="0" end="21600" period="3600"/>
+    <flow id="Metronit_lane_1_south_06_to_07" type="Metronit" route="Metronit_lane_1_south" line="1" begin="21600" end="25200" period="1800"/>
+    <flow id="Metronit_lane_1_south_07_to_09" type="Metronit" route="Metronit_lane_1_south" line="1" begin="25200" end="32400" period="600"/>
+    <flow id="Metronit_lane_1_south_09_to_12" type="Metronit" route="Metronit_lane_1_south" line="1" begin="32400" end="43200" period="1200"/>
+    <flow id="Metronit_lane_1_south_12_to_16" type="Metronit" route="Metronit_lane_1_south" line="1" begin="43200" end="57600" period="1800"/>
+    <flow id="Metronit_lane_1_south_16_to_18" type="Metronit" route="Metronit_lane_1_south" line="1" begin="57600" end="64800" period="1200"/>
+    <flow id="Metronit_lane_1_south_18_to_20" type="Metronit" route="Metronit_lane_1_south" line="1" begin="64800" end="72000" period="2400"/>
+    <flow id="Metronit_lane_1_south_20_to_24" type="Metronit" route="Metronit_lane_1_south" line="1" begin="72000" end="86400" period="3600"/>
+
+    <flow id="Metronit_lane_2_north_00_to_06" type="Metronit" route="Metronit_lane_2_north" line="1" begin="100" end="21700" period="3600"/>
+    <flow id="Metronit_lane_2_north_06_to_07" type="Metronit" route="Metronit_lane_2_north" line="1" begin="21700" end="25300" period="1800"/>
+    <flow id="Metronit_lane_2_north_07_to_09" type="Metronit" route="Metronit_lane_2_north" line="1" begin="25300" end="32500" period="600"/>
+    <flow id="Metronit_lane_2_north_09_to_12" type="Metronit" route="Metronit_lane_2_north" line="1" begin="32500" end="43300" period="1200"/>
+    <flow id="Metronit_lane_2_north_12_to_16" type="Metronit" route="Metronit_lane_2_north" line="1" begin="43300" end="57700" period="1800"/>
+    <flow id="Metronit_lane_2_north_16_to_18" type="Metronit" route="Metronit_lane_2_north" line="1" begin="57700" end="64900" period="1200"/>
+    <flow id="Metronit_lane_2_north_18_to_20" type="Metronit" route="Metronit_lane_2_north" line="1" begin="64900" end="72100" period="2400"/>
+    <flow id="Metronit_lane_2_north_20_to_24" type="Metronit" route="Metronit_lane_2_north" line="1" begin="72100" end="86400" period="3600"/>
+
+    <flow id="Metronit_lane_2_south_00_to_06" type="Metronit" route="Metronit_lane_2_south" line="1" begin="0" end="21600" period="3600"/>
+    <flow id="Metronit_lane_2_south_06_to_07" type="Metronit" route="Metronit_lane_2_south" line="1" begin="21600" end="25200" period="1800"/>
+    <flow id="Metronit_lane_2_south_07_to_09" type="Metronit" route="Metronit_lane_2_south" line="1" begin="25200" end="32400" period="600"/>
+    <flow id="Metronit_lane_2_south_09_to_12" type="Metronit" route="Metronit_lane_2_south" line="1" begin="32400" end="43200" period="1200"/>
+    <flow id="Metronit_lane_2_south_12_to_16" type="Metronit" route="Metronit_lane_2_south" line="1" begin="43200" end="57600" period="1800"/>
+    <flow id="Metronit_lane_2_south_16_to_18" type="Metronit" route="Metronit_lane_2_south" line="1" begin="57600" end="64800" period="1200"/>
+    <flow id="Metronit_lane_2_south_18_to_20" type="Metronit" route="Metronit_lane_2_south" line="1" begin="64800" end="72000" period="2400"/>
+    <flow id="Metronit_lane_2_south_20_to_24" type="Metronit" route="Metronit_lane_2_south" line="1" begin="72000" end="86400" period="3600"/>
+
+    <flow id="Bus_lane_22_north_06_to_07" type="Bus" route="Bus_lane_22_north" line="2" begin="21600" end="25200" period="3600"/>
+    <flow id="Bus_lane_22_north_07_to_09" type="Bus" route="Bus_lane_22_north" line="2" begin="25200" end="32400" period="1800"/>
+    <flow id="Bus_lane_22_north_09_to_12" type="Bus" route="Bus_lane_22_north" line="2" begin="32400" end="43200" period="3600"/>
+    <flow id="Bus_lane_22_north_12_to_16" type="Bus" route="Bus_lane_22_north" line="2" begin="43200" end="57600" period="3600"/>
+    <flow id="Bus_lane_22_north_16_to_18" type="Bus" route="Bus_lane_22_north" line="2" begin="57600" end="64800" period="3600"/>
+    <flow id="Bus_lane_22_north_18_to_20" type="Bus" route="Bus_lane_22_north" line="2" begin="64800" end="72000" period="3600"/>
+    <flow id="Bus_lane_22_north_20_to_24" type="Bus" route="Bus_lane_22_north" line="2" begin="72000" end="86400" period="3600"/>
+
+    <flow id="Bus_lane_22_south_06_to_07" type="Bus" route="Bus_lane_22_south" line="2" begin="21600" end="25200" period="3600"/>
+    <flow id="Bus_lane_22_south_07_to_09" type="Bus" route="Bus_lane_22_south" line="2" begin="25200" end="32400" period="1800"/>
+    <flow id="Bus_lane_22_south_09_to_12" type="Bus" route="Bus_lane_22_south" line="2" begin="32400" end="43200" period="3600"/>
+    <flow id="Bus_lane_22_south_12_to_16" type="Bus" route="Bus_lane_22_south" line="2" begin="43200" end="57600" period="3600"/>
+    <flow id="Bus_lane_22_south_16_to_18" type="Bus" route="Bus_lane_22_south" line="2" begin="57600" end="64800" period="3600"/>
+    <flow id="Bus_lane_22_south_18_to_20" type="Bus" route="Bus_lane_22_south" line="2" begin="64800" end="72000" period="3600"/>
+    <flow id="Bus_lane_22_south_20_to_24" type="Bus" route="Bus_lane_22_south" line="2" begin="72000" end="86400" period="3600"/>
+
+
+</routes>

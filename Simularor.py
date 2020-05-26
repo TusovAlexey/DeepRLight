@@ -29,23 +29,27 @@ class Simulator:
         self.traffic_network = TrafficNetwork(self.args, view_dict)
         traci.close()
 
-        if self.args.gui == False:
-           self.sumo_cmd = [checkBinary('sumo'), '-c', self.args.cfg, '--no-warnings']
-        else:
-           #self.sumo_cmd = [checkBinary('sumo-gui'), '-c', self.args.cfg, '--start', '--quit-on-end', '-g', ",".join(view_paths)]
-           self.sumo_cmd = [checkBinary('sumo-gui'), '-c', self.args.cfg, '--start', '--quit-on-end']
+        self.sumo_cli = [checkBinary('sumo'), '-c', self.args.cfg, '--no-warnings']
+        self.sumo_gui = [checkBinary('sumo-gui'), '-c', self.args.cfg, '--start', '--quit-on-end']
+        self.sumo_cmd = self.sumo_cli
+        if self.args.gui:
+            self.sumo_cmd = self.sumo_gui
+
 
     def parse_gui_settings(self):
         views_path = [os.path.abspath(file) for file in os.listdir(os.path.dirname(self.args.cfg) + "/Views/")]
         views_names = {file.split(".")[0] : i for i ,file in enumerate(os.listdir(os.path.dirname(self.args.cfg) + "/Views/"))}
         return views_names, views_path
 
-
     def reset(self):
         """
         Reset before new episode
         :return:
         """
+        if self.args.capture and (self.episode % self.args.episode_capture) == 0 :
+            self.sumo_cmd = self.sumo_gui
+        else:
+            self.sumo_cmd = self.sumo_cmd
         traci.start(self.sumo_cmd, label='DeepRLight')
         self.traffic_network.reset(self.episode)
         for _ in range(random.randint(5, self.heatup)):

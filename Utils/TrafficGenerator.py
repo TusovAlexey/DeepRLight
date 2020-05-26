@@ -7,10 +7,12 @@ import matplotlib.pyplot as plt
 #from pylab import *
 import numpy as np
 from scipy import stats
+import random
 
 class TrafficNetwork:
-    def __init__(self, net_xml, routes_xml):
+    def __init__(self, net_xml, routes_xml, walks_xml):
         self.network = net.readNet(net_xml)
+        self.walks = set(random.sample([node.attributes['edges'].value for node in minidom.parse(walks_xml).getElementsByTagName('walk')], 50))
         self.routes = set([node.attributes['edges'].value for node in minidom.parse(routes_xml).getElementsByTagName('route')])
         self.junctions = None
 
@@ -30,6 +32,9 @@ class TrafficNetwork:
             if start_point in start and end_point in end:
                 routes.append(route)
         return routes
+
+    def get_walks(self):
+        return self.walks
 
     def get_lanes_number(self, edge):
         return self.network.getEdge(edge).getLaneNumber()
@@ -128,10 +133,11 @@ class TrafficGenerator:
         start_edge_lanes = self._network.get_lanes_number(start)
         end_edge_lanes = self._network.get_lanes_number(end)
         vClassParam = VType.default[vtype]['perHour']
-        return int(0.25 * factor * start_edge_lanes * vClassParam * end_edge_lanes * self.time_probability(hour))
+        return int(0.4 * factor * start_edge_lanes * vClassParam * end_edge_lanes * self.time_probability(hour))
 
-    def generate_flow(self, types):
+    def generate_flow(self, types, pedTypes):
         counter = 0
+        pedestrian_counter = 0
         flows = list()
         routes = self._network.find_routes()
         hours = np.linspace(start=0, stop=23*3600, num=24, dtype=int)
@@ -148,15 +154,33 @@ class TrafficGenerator:
                         ET.SubElement(vehicle_element, 'route', edges=route)
                         flows.append(vehicle_element)
                         counter += 1
+            for walk in self._network.get_walks():
+                for ped in pedTypes:
+                    num_pedestrians = self.time_probability(start_hour/3600)
+                    departure_times = stats.randint.rvs(start_hour, start_hour + 3600, size=num_pedestrians)
+                    for time in departure_times:
+                        pedestrian_element = ET.Element('person', attrib={'id' : ped['id'] + "_" + str(pedestrian_counter), 'depart': str(time), 'type': ped['id']})
+                        ET.SubElement(pedestrian_element, 'walk', edges=walk)
+                        flows.append(pedestrian_element)
+                        pedestrian_counter += 1
         flows.sort(key=lambda x: int(x.get('depart')))
         return flows
+
+    def generate_pedestrians(self):
+        typeElements = list()
+        types = list()
+        types.append({'vClass': 'pedestrian', 'guiShape': 'pedestrian', 'id': 'pedestrian_1'})
+        typeElements.append(ET.Element('vType', {'vClass': 'pedestrian', 'guiShape': 'pedestrian', 'id': 'pedestrian_1', 'color': 'blue', 'width':'0.7', 'length': '0.35', 'minGap':'0.1'}))
+        return typeElements, types
 
     def generate_xml(self, name):
         root = ET.Element('routes')
         typeElements, types = self.generate_types()
         root.extend(typeElements)
+        pedTypeElements, pedTypes = self.generate_pedestrians()
+        root.extend(pedTypeElements)
         #root.extend(self.generate_routes())
-        root.extend(self.generate_flow(types))
+        root.extend(self.generate_flow(types, pedTypes))
         tree= ET.ElementTree(root)
         xmlstr = minidom.parseString(ET.tostring(root)).toprettyxml(indent="   ", encoding='UTF-8')
         with open(name, "w") as f:
@@ -176,6 +200,18 @@ def extractRoutes(file):
             out.write("%s\n" % item)
         out.write("</routes>")
 
+
+def extractWalks(file):
+    array = []
+    with open(file, "r") as ins:
+        for line in ins:
+            if "<walk edges=" in line:
+                array.append(line)
+    with open(file, "w") as out:
+        out.write("<routes>\n")
+        for item in array:
+            out.write("%s\n" % item)
+        out.write("</routes>")
 
 def plot_generated(file):
     array = []
@@ -212,11 +248,13 @@ def plot_generated(file):
 
 
 if __name__ == '__main__':
-    routes_file = '../Networks/Derech_akko_small/routes/routes.xml'
-    network_file = '../Networks/Derech_akko_small/Network.net.xml'
+    routes_file = '../Networks/Derech_akko/routes/vehicle.routes.xml'
+    walks_file = '../Networks/Derech_akko/routes/ped.routes.xml'
+    network_file = '../Networks/Derech_akko/Network.net.xml'
     extractRoutes(routes_file)
-    flow_file = '../Networks/Derech_akko_small/flows/generated/Routes.rou.xml'
-    network = TrafficNetwork(network_file, routes_file)
+    extractWalks(walks_file)
+    flow_file = '../Networks/Derech_akko/flows/generated/Routes.rou.xml'
+    network = TrafficNetwork(network_file, routes_file, walks_file)
     network.parse()
     generator = TrafficGenerator(network)
     generator.generate_xml(flow_file)

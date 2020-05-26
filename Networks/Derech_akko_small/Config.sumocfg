@@ -1,12 +1,13 @@
 <configuration>
     <input>
        <net-file value="Network.net.xml"/>
-       <route-files value="flows/generated/Routes.rou.xml"/>
+       <!--route-files value="flows/generated/Routes.rou.xml"/-->
+	   <additional-files value="Additionals.add.xml,Demand.rou.xml"/>
     </input>
 	<time-to-teleport value="-1"/>
 	<time>
         <begin value="0"/>
-        <end value="100"/>
+        <end value="86400"/>
         <step-length value="1"/>
     </time>
     <gui_only>

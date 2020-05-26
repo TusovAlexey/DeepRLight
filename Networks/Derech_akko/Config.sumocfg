@@ -1,0 +1,31 @@
+<configuration>
+    <input>
+       <net-file value="Network.net.xml"/>
+       <route-files value="flows/generated/Bus.routes.xml,flows/generated/Routes.rou.xml"/>
+	   <additional-files value="Bus.add.xml"/>
+    </input>
+	<time-to-teleport value="-1"/>
+	<time>
+        <begin value="25200"/>
+        <end value="86400"/>
+        <step-length value="1"/>
+    </time>
+    <gui_only>
+        <gui-settings-file value="./Views/Zvulun.xml,./Views/AhiEilat.xml,./Views/Mozart.xml,./Views/Ushiskin.xml"/>
+        <game value="false"/>
+        <start value="false"/>
+    </gui_only>
+    <output>
+        <summary-output value="Output.out.xml"/>
+    </output>
+    <processing>
+	<ignore-route-errors value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
