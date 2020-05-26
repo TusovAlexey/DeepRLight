@@ -39,6 +39,7 @@ class LoggingCsv:
         self.file_handler = None
 
     def set_new_file(self, name):
+
         if self.logger.hasHandlers():
             self.logger.removeHandler(self.file_handler)
         self.file_handler = logging.FileHandler(
@@ -59,13 +60,24 @@ class LoggingCsv:
 class Logging:
     def __init__(self, loglevel=logging.DEBUG, logfile=None, stdout=False, name='root'):
         assert logfile is not None or stdout is True
-        self.level = loglevel
-        self.logger = logging.getLogger(name)
-        self.logger.setLevel(loglevel)
         self.root_dir = logfile
-        self.file_handler = None
         if logfile is not None:
             os.makedirs(self.root_dir, exist_ok=True)
+
+        self.level = loglevel
+        self.global_logger = logging.getLogger(name + "_global")
+        self.global_logger.setLevel(loglevel)
+        self.global_file_handler = logging.FileHandler(os.path.join(self.root_dir, "global.log"))
+        self.global_file_handler.setLevel(self.level)
+        global_file_format = logging.Formatter('%(message)s')
+        self.global_file_handler.setFormatter(global_file_format)
+        self.global_logger.addHandler(self.global_file_handler)
+
+        self.logger = logging.getLogger(name)
+        self.logger.setLevel(loglevel)
+
+        self.file_handler = None
+
         if stdout:
             stdout_format = logging.Formatter('[%(asctime)s | %(levelname)s | %(name)s] %(message)s')
             stdout_handler = logging.StreamHandler(sys.stdout)
@@ -87,6 +99,10 @@ class Logging:
 
     def info(self, msg):
         self.logger.info(msg)
+
+    def info_global(self, msg):
+        self.global_logger.info(msg)
+
 
 class GUIScreenShot:
     def __init__(self, path, name, view_id):
@@ -133,4 +149,4 @@ class GUIScreenShot:
                 os.remove(os.path.join(self.root, f))
 
 
-Logger = Logging(stdout=True)
+#Logger = Logging(stdout=True)

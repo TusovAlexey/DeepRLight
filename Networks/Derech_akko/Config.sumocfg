@@ -6,7 +6,7 @@
     </input>
 	<time-to-teleport value="-1"/>
 	<time>
-        <begin value="25200"/>
+        <begin value="0"/>
         <end value="86400"/>
         <step-length value="1"/>
     </time>
@@ -23,7 +23,7 @@
     </processing>
 
     <report>
-        <verbose value="true"/>
+        <verbose value="false"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>

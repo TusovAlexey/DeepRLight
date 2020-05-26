@@ -5,6 +5,7 @@ import os
 import sys
 from TrafficNetwork import TrafficNetwork
 import random
+from tqdm import tqdm
 
 class Simulator:
     def __init__(self, args):
@@ -72,8 +73,11 @@ class Simulator:
         for self.episode in range(self.args.episodes):
             self.reset()
             self.steps = 0
+            pbar = tqdm(total=self.args.max_steps)
             while self.steps < self.args.max_steps:
                 self.step()
                 self.learn()
                 self.steps += 1
+                pbar.update(1)
             self.close()
+            pbar.close()

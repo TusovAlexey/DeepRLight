@@ -102,7 +102,11 @@ class Edge:
     def get_waiting_persons(self):
         return [person for person in self.get_persons() if traci.person.getStage(person)==1]
 
+    def get_num_waiting_persons(self):
+        return len(self.get_waiting_persons())
 
+    def get_total_waiting_persons_time(self):
+        return sum([traci.person.getWaitingTime(person) for person in self.get_persons() if traci.person.getStage(person)==1])
 
 
 class Junction:
@@ -118,7 +122,7 @@ class Junction:
         self.args = args
         self.config_file = os.path.dirname(args.cfg) + "/parameters/" + self.jid + ".ini"
         self.agentParams = AgentParams(self.config_file)
-        self.input_size = len(self.lanes) + len(self.phases)
+        self.input_size = len(self.generate_state())
         self.num_actions = len(self.phases)
         self.agent = Double_DQN_Agent(self.input_size, self.num_actions, self.agentParams)
         self.steps_counter = 0
@@ -134,7 +138,8 @@ class Junction:
         self.next_phase = None
         self.current_phase_state = self.phases[traci.trafficlight.getPhase(self.jid)].state
         self.yellow_steps_counter = 0
-        self.episode = 0
+        self.episode = -1
+        self.episode_rewards = list()
 
     def __repr__(self):
         string = "- Junction id: " + self.jid + "\n"
@@ -143,6 +148,9 @@ class Junction:
         return string
 
     def reset(self, episode):
+        if self.episode != -1:
+            self.logger.info_global("Episode " + str(self.episode) + " mean reward:" + str(np.mean(self.episode_rewards)))
+            self.episode_rewards = list()
         self.episode = episode
         self.csv_logger.set_new_file("Episode_" + str(episode))
         self.phase_logger.set_new_file("Episode_" + str(episode))
@@ -201,14 +209,18 @@ class Junction:
         self.steps_counter = 0
 
     def generate_state(self):
+        """ state = [num persons per edge] + [vehicle mean speed per lane] + [phases] """
         phase_state = np.eye(len(self.phases))[traci.trafficlight.getPhase(self.jid)]
+        edges_persons_total_num_state = np.array([edge.get_num_waiting_persons() for edge in self.edges])
         lanes_mean_speed_state = np.array([lane.mean_speed() for lane in self.lanes])
-        return np.concatenate((lanes_mean_speed_state, phase_state))
+        return np.concatenate((edges_persons_total_num_state , lanes_mean_speed_state, phase_state))
 
     def calculate_reward(self):
         # max waiting time
-        #return -1*max([lane.waiting_time() for lane in self.lanes])
-        return max(np.mean([lane.mean_speed() for lane in self.lanes]) * sum([lane.num_cars() for lane in self.lanes]), 0)
+        reward = -1*max([lane.max_waiting_time() for lane in self.lanes])
+        self.episode_rewards.append(reward)
+        return reward
+        #return max(np.mean([lane.mean_speed() for lane in self.lanes]) * sum([lane.num_cars() for lane in self.lanes]), 0)
 
     def step(self):
         if self.current_phase_state.count('y') > 0:

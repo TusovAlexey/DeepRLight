@@ -4,7 +4,7 @@
 
 from Utils.ArgParser import process_arguments
 from Simularor import Simulator
-from Utils.Logging import Logger
+#from Utils.Logging import Logger
 
 
 
