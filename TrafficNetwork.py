@@ -139,6 +139,7 @@ class Junction:
         self.current_phase_state = self.phases[traci.trafficlight.getPhase(self.jid)].state
         self.yellow_steps_counter = 0
         self.episode = -1
+        self.best_reward = -np.Inf
         self.episode_rewards = list()
 
     def __repr__(self):
@@ -149,7 +150,12 @@ class Junction:
 
     def reset(self, episode):
         if self.episode != -1:
-            self.logger.info_global("Episode " + str(self.episode) + " mean reward:" + str(np.mean(self.episode_rewards)))
+            current_mean = np.mean(self.episode_rewards)
+            if current_mean > self.best_reward:
+                self.best_reward = current_mean
+                os.makedirs(os.path.join(self.log_root, "checkpoint"), exist_ok=True)
+                self.agent.save_ckpt(os.path.join(self.log_root, "checkpoint"))
+            self.logger.info_global("Episode " + str(self.episode) + " mean reward:" + str(current_mean))
             self.episode_rewards = list()
         self.episode = episode
         self.csv_logger.set_new_file("Episode_" + str(episode))
