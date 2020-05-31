@@ -308,12 +308,13 @@ class TrafficNetwork:
             junction.learn()
 
     def dump(self):
-        for junction in self.junctions:
-            jid, results = junction.dump()
-            self.dump_data[jid] = dict((k, results[k]) for k in ('time', 'cars', 'max_wt', 'mean_speed'))
-        #self.network_screen_logger.log(self.episode)
-        if self.args.animation:
-            self.communicator.put(self.dump_data)
+        if self.args.dump:
+            for junction in self.junctions:
+                jid, results = junction.dump()
+                self.dump_data[jid] = dict((k, results[k]) for k in ('time', 'cars', 'max_wt', 'mean_speed'))
+            #self.network_screen_logger.log(self.episode)
+            if self.args.animation:
+                self.communicator.put(self.dump_data)
 
     def reset(self, episode):
         self.episode = episode
