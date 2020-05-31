@@ -18,6 +18,7 @@ def process_arguments():
     parser.add_argument("-c", "--capture", type=bool, default=False, dest="capture")
     parser.add_argument("-ec", "--episode-capture", type=int, default=5, dest="episode_capture")
     parser.add_argument("-d", "--dump", type=bool, default=False, dest="dump")
+    parser.add_argument("-l", "--learn", type=bool, default=True, dest="learn")
     args = parser.parse_args()
     args.network = os.path.join("Networks", args.network)
     args.cfg = os.path.join(args.network, "Config.sumocfg")

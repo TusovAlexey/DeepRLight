@@ -67,7 +67,8 @@ class Simulator:
         traci.simulationStep()
 
     def learn(self):
-        self.traffic_network.learn()
+        if self.args.learn:
+            self.traffic_network.learn()
 
     def run(self):
         for self.episode in range(self.args.episodes):

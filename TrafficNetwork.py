@@ -7,7 +7,7 @@ from Utils.Logging import Logging, LoggingCsv, GUIScreenShot
 from Utils.PlotAnimation import PlotAnimation, animation_process
 import time
 import matplotlib;
-
+import multiprocessing
 matplotlib.use("TkAgg")
 import numpy as np
 import matplotlib.pyplot as plt
