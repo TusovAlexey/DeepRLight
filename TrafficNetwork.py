@@ -1,7 +1,7 @@
 import os
 import traci
 from Utils.AgentParams import AgentParams
-from Agent import Double_DQN_Agent
+from Agent import Double_DQN_Agent, Cyclic_Agent
 import numpy as np
 from Utils.Logging import Logging, LoggingCsv, GUIScreenShot
 from Utils.PlotAnimation import PlotAnimation, animation_process
@@ -13,6 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from multiprocessing import Process, Queue
+
 
 class Lane:
     def __init__(self, lid):
@@ -124,7 +125,8 @@ class Junction:
         self.agentParams = AgentParams(self.config_file)
         self.input_size = len(self.generate_state())
         self.num_actions = len(self.phases)
-        self.agent = Double_DQN_Agent(self.input_size, self.num_actions, self.agentParams)
+        self.agent = Cyclic_Agent(self.num_actions)
+        #self.agent = Double_DQN_Agent(self.input_size, self.num_actions, self.agentParams)
         self.steps_counter = 0
         self.reward = None
         self.last_state = None
